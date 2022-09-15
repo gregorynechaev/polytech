@@ -48,8 +48,8 @@ fun daysInMonth(month: Int, year: Int): Int {
     return when{
         year == 1900 && month == 2 -> 28
         (month < 8 && month % 2 == 1) || (month >=8 && month % 2 ==0 ) -> 31
-        (month < 8 && month % 2 == 0 && month != 2) || (month >=8 && month % 2 == 1 ) -> 30
-        month == 2 && year % 4 != 2 -> 29
+        (month < 8 && month % 2 == 0 && month != 2) || (month >= 8 && month % 2 == 1 ) -> 30
+        month == 2 && year % 4 == 0 -> 29
 
         else -> 28
 
@@ -66,8 +66,7 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = TODO()
-
+): Boolean = kotlin.math.sqrt(Math.pow((x2 - x1).toDouble(),2.0) + Math.pow((y2 - y1).toDouble(),2.0)) + r1 <= r2
 /**
  * Средняя (3 балла)
  *

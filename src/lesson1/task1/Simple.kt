@@ -82,7 +82,11 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = 0.04445 
  * Пользователь задает угол в градусах, минутах и секундах (например, 36 градусов 14 минут 35 секунд).
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
-fun angleInRadian(deg: Int, min: Int, sec: Int): Double = (Math.PI / 180) * (deg.toDouble() + (min.toDouble() / 60) + (sec.toDouble() / 60 / 60))
+fun angleInRadian(deg: Int, min: Int, sec: Int): Double {
+    val pi = kotlin.math.PI
+    val result = pi / 180 * (deg.toDouble() + (min.toDouble() / 60) + (sec.toDouble() / 60 / 60))
+    return result
+}
 
 /**
  * Тривиальная (1 балл)
@@ -111,8 +115,6 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
     val minutedep = hoursDepart * 60 + minutesDepart
     val minutearr = hoursArrive * 60 + minutesArrive
     return minutearr - minutedep
-
-
 }
 
 /**
@@ -126,8 +128,6 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
     val per = 1 + (percent.toDouble() / 100)
     val result = initial * Math.pow(per.toDouble() , 3.00)
     return result
-
-
 }
 
 /**
@@ -142,5 +142,4 @@ fun numberRevert(number: Int): Int {
     val third = number % 10
     val result = (third.toString() + second.toString() + first.toString()).toInt()
     return result
-
 }

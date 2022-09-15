@@ -72,9 +72,9 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = when{
+fun ageDescription(age: Int): String = when {
     age % 10 == 1 && age != 111 && age != 11 -> "$age год"
-    (age % 10 == 2 || age % 10 == 3 || age  % 10 == 4) && age != 12 && age != 13 && age != 14 && age != 112 && age != 113 && age != 114 -> "$age года"
+    (age % 10 in 2..4) && age !in 12..14 && age !in 112..114 -> "$age года"
     else -> "$age лет"
 
 
@@ -117,7 +117,7 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = when{
+): Int = when {
     (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
     kingX == rookX1 || kingY == rookY1 -> 1
     kingX == rookX2 || kingY == rookY2 -> 2
@@ -138,8 +138,8 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = when{
-    (Math.abs(kingX - kingY) == Math.abs(bishopX - bishopY) || kingY + kingX == bishopX + bishopY ) && (kingX == rookX || kingY == rookY) -> 3
+): Int = when {
+    (kingX - kingY == bishopX - bishopY || kingY + kingX == bishopX + bishopY ) && (kingX == rookX || kingY == rookY) -> 3
     kingX == rookX || kingY == rookY -> 1
     Math.abs(kingX - kingY) == Math.abs(bishopX - bishopY) || kingY + kingX == bishopX + bishopY -> 2
 
@@ -154,7 +154,21 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val max_ab = kotlin.math.max(a, b)
+    val max = kotlin.math.max(max_ab, c)
+    val min_ab = kotlin.math.min(a, b)
+    val min = kotlin.math.min(min_ab, c)
+    val sr = a + b + c - max - min
+    return when {
+        a + b < c || a + c < b || b + c < a -> -1
+        Math.pow(max.toDouble(), 2.0) == Math.pow(sr.toDouble(), 2.0) + Math.pow(min.toDouble(), 2.0) -> 1
+        Math.pow(max.toDouble(), 2.0) > Math.pow(sr.toDouble(), 2.0) + Math.pow(min.toDouble(), 2.0) -> 2
+        else -> 0
+    }
+}
+
+
 
 /**
  * Средняя (3 балла)
@@ -164,7 +178,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when{
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     c > b -> -1
     c <= b && b >= d && c >= a -> d - c
     b >= d && a >= c && a <= d -> d - a
