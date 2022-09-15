@@ -76,10 +76,6 @@ fun ageDescription(age: Int): String = when {
     age % 10 == 1 && age != 111 && age != 11 -> "$age год"
     (age % 10 in 2..4) && age !in 12..14 && age !in 112..114 -> "$age года"
     else -> "$age лет"
-
-
-
-
 }
 
 /**
@@ -142,7 +138,6 @@ fun rookOrBishopThreatens(
     (kingX - kingY == bishopX - bishopY || kingY + kingX == bishopX + bishopY ) && (kingX == rookX || kingY == rookY) -> 3
     kingX == rookX || kingY == rookY -> 1
     Math.abs(kingX - kingY) == Math.abs(bishopX - bishopY) || kingY + kingX == bishopX + bishopY -> 2
-
     else -> 0
 }
 
@@ -185,6 +180,4 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     a > d && b > d -> -1
     d >= b && b >= c && c >= a -> b - c
     else -> b - a
-
-
 }
