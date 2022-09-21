@@ -72,7 +72,17 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    if (n == 0) return 1
+    var count = 0
+    var i = n
+    while (i != 0) {
+        count += 1
+        i /= 10
+    }
+    return count
+
+}
 
 /**
  * Простая (2 балла)
@@ -80,21 +90,58 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var pred = 1
+    var predpred = 1
+    var fibo = 0
+    if (n in 1..2) {
+        return 1
+    }
+    else {
+        for (i in 3..n) {
+            fibo = pred + predpred
+            predpred = pred
+            pred = fibo
+
+        }
+    }
+    return fibo
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var del = 0
+    var count = 2
+    while (del == 0) {
+        if (n % count == 0) {
+            break
+        }
+        else count += 1
+    }
+    return count
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var del = 0
+    var count = n-1
+    while (del == 0) {
+        if (n % count == 0) {
+            break
+        }
+        else count -= 1
+    }
+    return count
+}
+
 
 /**
  * Простая (2 балла)
@@ -112,7 +159,18 @@ fun maxDivisor(n: Int): Int = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var count = 0
+    var i = x
+    while (i != 1) {
+        when {
+            i % 2 == 0 -> i /= 2
+            else -> i = 3 * i + 1
+        }
+        count += 1
+    }
+    return count
+}
 
 /**
  * Средняя (3 балла)
@@ -120,7 +178,16 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var flag = true
+    var k = 1
+    while (flag == true) {
+        if (k % m == 0 && k % n == 0) {
+            flag = false
+        }
+    }
+    return k
+}
 
 /**
  * Средняя (3 балла)
@@ -138,7 +205,17 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var result = ""
+    var i = n
+    while (i != 0) {
+        result += (i % 10).toString()
+        i /= 10
+
+    }
+    val res = result.toInt()
+    return res
+}
 
 /**
  * Средняя (3 балла)

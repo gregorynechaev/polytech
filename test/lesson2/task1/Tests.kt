@@ -66,6 +66,7 @@ class Tests {
         assertEquals(1, rookOrBishopThreatens(2, 8, 6, 8, 1, 6))
         assertEquals(2, rookOrBishopThreatens(5, 4, 3, 7, 1, 8))
         assertEquals(3, rookOrBishopThreatens(1, 6, 7, 6, 3, 8))
+        assertEquals(0, rookOrBishopThreatens(2, 5, 1, 1, 8, 5))
     }
 
     @Test

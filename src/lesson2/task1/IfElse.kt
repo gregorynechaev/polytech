@@ -137,7 +137,7 @@ fun rookOrBishopThreatens(
 ): Int = when {
     (kingX - kingY == bishopX - bishopY || kingY + kingX == bishopX + bishopY ) && (kingX == rookX || kingY == rookY) -> 3
     kingX == rookX || kingY == rookY -> 1
-    Math.abs(kingX - kingY) == Math.abs(bishopX - bishopY) || kingY + kingX == bishopX + bishopY -> 2
+    ((abs(kingX - kingY) == abs(bishopX - bishopY)) && (kingX + kingY > bishopX + bishopY)) || kingY + kingX == bishopX + bishopY -> 2
     else -> 0
 }
 
@@ -150,15 +150,15 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val max_ab = kotlin.math.max(a, b)
-    val max = kotlin.math.max(max_ab, c)
-    val min_ab = kotlin.math.min(a, b)
-    val min = kotlin.math.min(min_ab, c)
+    val maxAb = max(a,b)
+    val max = max(maxAb, c)
+    val minAb = min(a, b)
+    val min = min(minAb, c)
     val sr = a + b + c - max - min
     return when {
         a + b < c || a + c < b || b + c < a -> -1
-        Math.pow(max.toDouble(), 2.0) == Math.pow(sr.toDouble(), 2.0) + Math.pow(min.toDouble(), 2.0) -> 1
-        Math.pow(max.toDouble(), 2.0) > Math.pow(sr.toDouble(), 2.0) + Math.pow(min.toDouble(), 2.0) -> 2
+        max.toDouble().pow(2.00) == sr.toDouble().pow(2.00) + min.toDouble().pow(2.00) -> 1
+        max.toDouble().pow((2.00)) > sr.toDouble().pow(2.00) + min.toDouble().pow(2.00) -> 2
         else -> 0
     }
 }

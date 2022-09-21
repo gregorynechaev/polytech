@@ -35,7 +35,8 @@ fun isNumberHappy(number: Int): Boolean {
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = x1 == x2 || y1 == y2 || x1 + y1 == x2 + y2 || abs(x2 - x1 ) == abs(y2 - y1)
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = x1 == x2 || y1 == y2 || x1 + y1 == x2 + y2 ||
+        abs(x2 - x1 ) == abs(y2 - y1)
 
 
 /**
@@ -44,15 +45,15 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = x1 == x2 || y1
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int {
-    return when {
-        year == 1900 && month == 2 -> 28
+fun daysInMonth(month: Int, year: Int): Int = when {
+        (year % 10 == 0) && ((year / 10) % 10 == 0) && (year / 100) % 10 == 0 && month == 2 -> 29
+        ((year % 10 == 0) && (((year / 10) % 10) == 0 )) && month == 2 -> 28
         (month < 8 && month % 2 == 1) || (month >=8 && month % 2 ==0 ) -> 31
         (month < 8 && month % 2 == 0 && month != 2) || (month >= 8 && month % 2 == 1 ) -> 30
         month == 2 && year % 4 == 0 -> 29
         else -> 28
     }
-}
+
 
 /**
  * Простая (2 балла)
