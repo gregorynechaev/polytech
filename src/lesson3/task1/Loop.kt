@@ -2,7 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -96,8 +96,7 @@ fun fib(n: Int): Int {
     var fibo = 0
     if (n in 1..2) {
         return 1
-    }
-    else {
+    } else {
         for (i in 3..n) {
             fibo = pred + predpred
             predpred = pred
@@ -119,8 +118,7 @@ fun minDivisor(n: Int): Int {
     while (del == 0) {
         if (n % count == 0) {
             break
-        }
-        else count += 1
+        } else count += 1
     }
     return count
 }
@@ -132,12 +130,11 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
     var del = 0
-    var count = n-1
+    var count = n - 1
     while (del == 0) {
         if (n % count == 0) {
             break
-        }
-        else count -= 1
+        } else count -= 1
     }
     return count
 }
@@ -208,13 +205,18 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 fun revert(n: Int): Int {
     var result = ""
     var i = n
-    while (i != 0) {
-        result += (i % 10).toString()
-        i /= 10
+    if (i == 0) {
+        return 0
+    } else {
 
+
+        while (i != 0) {
+            result += (i % 10).toString()
+            i /= 10
+
+        }
+        return result.toInt()
     }
-    val res = result.toInt()
-    return res
 }
 
 /**
@@ -226,7 +228,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя (3 балла)
@@ -236,7 +238,21 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var i = n
+    var c = i % 10
+    var flag = false
+    while (i != 0) {
+        if (c != i % 10) {
+            flag = true
+            break
+        }
+        i /= 10
+    }
+    if (flag) {
+        return true
+    } else return false
+}
 
 /**
  * Средняя (4 балла)
@@ -247,7 +263,27 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var flag = true
+    var res = 0.0
+    var count = 0
+    var i = 1
+    while (flag) {
+        count++
+        if (count % 2 != 0) {
+            res += x.pow(i) / factorial(i)
+        } else {
+            res -= x.pow(i) / factorial(i)
+        }
+        if ((x.pow(i) / factorial(i)) < eps) {
+            flag = false
+        }
+        i += 2
+
+    }
+    return res
+
+}
 
 /**
  * Средняя (4 балла)
@@ -269,7 +305,39 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var x = ""
+    var resultDigits = 0
+    var countDigits = 0
+    var sqr = 0
+    var iCount = 0
+    var newI = 0
+    var res = 0
+    var difference = 0
+    for (i in 1..n) {
+        sqr = i * i
+        countDigits = 0
+        while (sqr != 0) {
+            countDigits++
+            sqr /= 10
+        }
+        resultDigits += countDigits
+        if (n <= resultDigits) {
+            difference = resultDigits - n
+            newI = i * i
+            iCount = 0
+            while (newI != 0) {
+                if (iCount == difference) {
+                    res =  newI % 10
+                }
+                newI /= 10
+                iCount++
+            }
+        }
+    }
+
+    return res
+}
 
 /**
  * Сложная (5 баллов)
@@ -280,4 +348,36 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var x = ""
+    var resultDigits = 0
+    var countDigits = 0
+    var sqr = 0
+    var iCount = 0
+    var newI = 0
+    var res = 0
+    var difference = 0
+    for (i in 1..n) {
+        sqr = fib(i)
+        countDigits = 0
+        while (sqr != 0) {
+            countDigits++
+            sqr /= 10
+        }
+        resultDigits += countDigits
+        if (n <= resultDigits) {
+            difference = resultDigits - n
+            newI = fib(i)
+            iCount = 0
+            while (newI != 0) {
+                if (iCount == difference) {
+                    res =  newI % 10
+                }
+                newI /= 10
+                iCount++
+            }
+        }
+    }
+
+    return res
+}
