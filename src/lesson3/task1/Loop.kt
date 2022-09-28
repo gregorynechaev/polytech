@@ -96,14 +96,14 @@ fun fib(n: Int): Int {
     var fibo = 0
     if (n in 1..2) {
         return 1
-    } else {
-        for (i in 3..n) {
-            fibo = pred + predpred
-            predpred = pred
-            pred = fibo
-
-        }
     }
+    for (i in 3..n) {
+        fibo = pred + predpred
+        predpred = pred
+        pred = fibo
+
+    }
+
     return fibo
 }
 
@@ -113,14 +113,21 @@ fun fib(n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var del = 0
-    var count = 2
-    while (del == 0) {
-        if (n % count == 0) {
+    var sqRoot = sqrt(n.toDouble())
+    var result = n
+//    while (del == 0) {
+//        if (n % count == 0) {
+//            break
+//        } else count += 1
+//    }
+    for (i in 2..sqRoot.toInt()) {
+        if (n % i == 0) {
+            result = i
             break
-        } else count += 1
+        }
+
     }
-    return count
+    return result
 }
 
 /**
@@ -177,13 +184,15 @@ fun collatzSteps(x: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     var flag = true
-    var k = 1
-    while (flag == true) {
-        if (k % m == 0 && k % n == 0) {
-            flag = false
-        }
+    var max = 0
+    var result = 0
+    var newM = m
+    var newN = n
+    while (newM != newN) {
+        if (newN > newM) newN -= newM
+        else newM -= newN
     }
-    return k
+    return m * n / newM
 }
 
 /**
@@ -193,7 +202,21 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var result = 0
+    var newM = m
+    var newN = n
+    while (newM != newN) {
+        if (newN > newM) newN -= newM
+        else newM -= newN
+    }
+    if (newM == 1){
+        return true
+    }
+    else{
+        return false
+    }
+}
 
 /**
  * Средняя (3 балла)
@@ -203,20 +226,22 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var result = ""
-    var i = n
-    if (i == 0) {
-        return 0
-    } else {
-
-
-        while (i != 0) {
-            result += (i % 10).toString()
-            i /= 10
-
-        }
-        return result.toInt()
+    var result = 0.0
+    var count = 0
+    var g = n
+    while (g != 0) {
+        count++
+        g /= 10
     }
+    var i = n
+    var tens = 10.0.pow(count - 1)
+    while (i != 0) {
+        result += (i % 10) * tens
+        i /= 10
+        tens /= 10
+    }
+    return result.toInt()
+
 }
 
 /**
@@ -249,9 +274,7 @@ fun hasDifferentDigits(n: Int): Boolean {
         }
         i /= 10
     }
-    if (flag) {
-        return true
-    } else return false
+    return flag
 }
 
 /**
@@ -306,9 +329,8 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var x = ""
     var resultDigits = 0
-    var countDigits = 0
+    var digitNumber = 0
     var sqr = 0
     var iCount = 0
     var newI = 0
@@ -316,19 +338,19 @@ fun squareSequenceDigit(n: Int): Int {
     var difference = 0
     for (i in 1..n) {
         sqr = i * i
-        countDigits = 0
+        digitNumber = 0
         while (sqr != 0) {
-            countDigits++
+            digitNumber++
             sqr /= 10
         }
-        resultDigits += countDigits
+        resultDigits += digitNumber
         if (n <= resultDigits) {
             difference = resultDigits - n
             newI = i * i
             iCount = 0
             while (newI != 0) {
                 if (iCount == difference) {
-                    res =  newI % 10
+                    res = newI % 10
                 }
                 newI /= 10
                 iCount++
@@ -349,9 +371,8 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var x = ""
     var resultDigits = 0
-    var countDigits = 0
+    var digitNumber = 0
     var sqr = 0
     var iCount = 0
     var newI = 0
@@ -359,19 +380,19 @@ fun fibSequenceDigit(n: Int): Int {
     var difference = 0
     for (i in 1..n) {
         sqr = fib(i)
-        countDigits = 0
+        digitNumber = 0
         while (sqr != 0) {
-            countDigits++
+            digitNumber++
             sqr /= 10
         }
-        resultDigits += countDigits
+        resultDigits += digitNumber
         if (n <= resultDigits) {
             difference = resultDigits - n
             newI = fib(i)
             iCount = 0
             while (newI != 0) {
                 if (iCount == difference) {
-                    res =  newI % 10
+                    res = newI % 10
                 }
                 newI /= 10
                 iCount++
