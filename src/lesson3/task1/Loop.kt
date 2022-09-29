@@ -210,10 +210,9 @@ fun isCoPrime(m: Int, n: Int): Boolean {
         if (newN > newM) newN -= newM
         else newM -= newN
     }
-    if (newM == 1){
+    if (newM == 1) {
         return true
-    }
-    else{
+    } else {
         return false
     }
 }
@@ -227,18 +226,11 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  */
 fun revert(n: Int): Int {
     var result = 0.0
-    var count = 0
     var g = n
-    while (g != 0) {
-        count++
+    while (g > 0) {
+        result = result * 10 + g % 10
         g /= 10
-    }
-    var i = n
-    var tens = 10.0.pow(count - 1)
-    while (i != 0) {
-        result += (i % 10) * tens
-        i /= 10
-        tens /= 10
+
     }
     return result.toInt()
 
@@ -289,19 +281,25 @@ fun hasDifferentDigits(n: Int): Boolean {
 fun sin(x: Double, eps: Double): Double {
     var flag = true
     var res = 0.0
-    var count = 0
-    var i = 1
+    var count = 1
+    var i = x
+    var sin = x
+    var fact = 1
+    var newEl = 0.0
     while (flag) {
-        count++
-        if (count % 2 != 0) {
-            res += x.pow(i) / factorial(i)
+        newEl = i * i.pow(2.0) / (fact + 1) / (fact + 2)
+        if (count % 2 == 0) {
+            sin -= newEl
         } else {
-            res -= x.pow(i) / factorial(i)
+            sin += newEl
         }
-        if ((x.pow(i) / factorial(i)) < eps) {
+        fact += 2
+        i = i * i.pow(2.0)
+        count++
+        if (newEl < eps) {
+            res = sin
             flag = false
         }
-        i += 2
 
     }
     return res
