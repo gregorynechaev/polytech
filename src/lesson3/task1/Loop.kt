@@ -182,17 +182,22 @@ fun collatzSteps(x: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var flag = true
-    var max = 0
-    var result = 0
+
+fun gcd(m: Int, n: Int): Int{
     var newM = m
     var newN = n
     while (newM != newN) {
         if (newN > newM) newN -= newM
         else newM -= newN
     }
-    return m * n / newM
+    return newM
+}
+
+fun lcm(m: Int, n: Int): Int {
+    var flag = true
+    var max = 0
+    var result = 0
+    return m * n / gcd(m,n)
 }
 
 /**
@@ -202,20 +207,11 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    var result = 0
-    var newM = m
-    var newN = n
-    while (newM != newN) {
-        if (newN > newM) newN -= newM
-        else newM -= newN
-    }
-    if (newM == 1) {
-        return true
-    } else {
-        return false
-    }
-}
+
+
+
+fun isCoPrime(m: Int, n: Int): Boolean = gcd(m,n)==1
+
 
 /**
  * Средняя (3 балла)
@@ -225,14 +221,14 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var result = 0.0
+    var result = 0
     var g = n
     while (g > 0) {
         result = result * 10 + g % 10
         g /= 10
 
     }
-    return result.toInt()
+    return result
 
 }
 
@@ -336,11 +332,7 @@ fun squareSequenceDigit(n: Int): Int {
     var difference = 0
     for (i in 1..n) {
         sqr = i * i
-        digitNumber = 0
-        while (sqr != 0) {
-            digitNumber++
-            sqr /= 10
-        }
+        digitNumber = digitNumber(sqr)
         resultDigits += digitNumber
         if (n <= resultDigits) {
             difference = resultDigits - n
@@ -378,11 +370,7 @@ fun fibSequenceDigit(n: Int): Int {
     var difference = 0
     for (i in 1..n) {
         sqr = fib(i)
-        digitNumber = 0
-        while (sqr != 0) {
-            digitNumber++
-            sqr /= 10
-        }
+        digitNumber = digitNumber(sqr)
         resultDigits += digitNumber
         if (n <= resultDigits) {
             difference = resultDigits - n

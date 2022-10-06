@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.isPrime
 import kotlin.math.*
 
 // Урок 4: списки
@@ -122,7 +123,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var abs = 0.0
-    for (i in 0..v.size-1){
+    for (i in 0..v.size - 1) {
         abs += v[i].pow(2.0)
 
     }
@@ -136,7 +137,7 @@ fun abs(v: List<Double>): Double {
  */
 fun mean(list: List<Double>): Double {
     var summ = 0.0
-    for (i in 0..list.size-1){
+    for (i in 0..list.size - 1) {
         summ += list[i]
     }
     if (list.size == 0) return 0.0
@@ -153,7 +154,7 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     var sr = mean(list)
-    for (i in 0..list.size-1){
+    for (i in 0..list.size - 1) {
         list[i] -= sr
     }
     return list
@@ -166,7 +167,14 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var c = 0
+    for (i in 0 until a.size) {
+        c += a[i] * b[i]
+    }
+    return c
+
+}
 
 /**
  * Средняя (3 балла)
@@ -176,7 +184,14 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int = TODO()
+fun polynom(p: List<Int>, x: Int): Int {
+    var px = 0.0
+    for (i in 0 until p.size) {
+        px += p[i] * x.toDouble().pow(i)
+    }
+    return px.toInt()
+
+}
 
 /**
  * Средняя (3 балла)
@@ -188,7 +203,19 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+
+    if (list.size != 1 && list.size != 0) {
+        var c = list[0]
+        for (i in 1 until list.size) {
+            c += list[i]
+            list[i] = c
+        }
+    }
+
+    return list
+
+}
 
 /**
  * Средняя (3 балла)
@@ -197,7 +224,15 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var list = listOf<Int>()
+    for (i in 2..n) {
+        if (n % i == 0 && isPrime(n)) {
+            list += i
+        }
+    }
+    return list
+}
 
 /**
  * Сложная (4 балла)

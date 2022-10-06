@@ -156,8 +156,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val sr = a + b + c - max - min
     return when {
         a + b < c || a + c < b || b + c < a -> -1
-        max.toDouble().pow(2.00) == sr.toDouble().pow(2.00) + min.toDouble().pow(2.00) -> 1
-        max.toDouble().pow((2.00)) > sr.toDouble().pow(2.00) + min.toDouble().pow(2.00) -> 2
+        max.pow(2.00) == sr.pow(2.00) + min.pow(2.00) -> 1
+        max.pow((2.00)) > sr.pow(2.00) + min.pow(2.00) -> 2
         else -> 0
     }
 }
