@@ -254,12 +254,20 @@ fun convert(n: Int, base: Int): List<Int> {
     var x = n
     var digit = 0
     var list = listOf<Int>()
-    while (x != 0) {
-        digit = x % base
-        x /= base
-        list += digit
+    if (x==0){
+        list += 0
+        return list
     }
-    return list.reversed()
+    else
+    {
+        while (x != 0) {
+            digit = x % base
+            x /= base
+            list += digit
+        }
+        return list.reversed()
+    }
+
 }
 
 /**
@@ -278,23 +286,27 @@ fun convertToString(n: Int, base: Int): String {
     var count = 0
     var digit = 0
     var s = ""
-    while (x != 0) {
-        digit = x % base
-        x /= base
-        if (digit > 9) {
-            count = 9
-            for (i in 'a'..'z') {
-                count++
-                if (digit == count) {
-                    s += i
+    if (n==0) return "0"
+    else{
+        while (x != 0) {
+            digit = x % base
+            x /= base
+            if (digit > 9) {
+                count = 9
+                for (i in 'a'..'z') {
+                    count++
+                    if (digit == count) {
+                        s += i
+                    }
                 }
+            } else {
+                s += digit.toString()
             }
-        } else {
-            s += digit.toString()
-        }
 
+        }
+        return s.reversed()
     }
-    return s.reversed()
+
 
 }
 
