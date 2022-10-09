@@ -183,7 +183,7 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 
-fun gcd(m: Int, n: Int): Int{
+fun gcd(m: Int, n: Int): Int {
     var newM = m
     var newN = n
     while (newM != newN) {
@@ -197,7 +197,7 @@ fun lcm(m: Int, n: Int): Int {
     var flag = true
     var max = 0
     var result = 0
-    return m * n / gcd(m,n)
+    return m * n / gcd(m, n)
 }
 
 /**
@@ -209,8 +209,7 @@ fun lcm(m: Int, n: Int): Int {
  */
 
 
-
-fun isCoPrime(m: Int, n: Int): Boolean = gcd(m,n)==1
+fun isCoPrime(m: Int, n: Int): Boolean = gcd(m, n) == 1
 
 
 /**

@@ -99,7 +99,6 @@ fun timeForHalfWay(
 }
 
 
-
 /**
  * Простая (2 балла)
  *
@@ -136,9 +135,9 @@ fun rookOrBishopThreatens(
     bishopX: Int, bishopY: Int
 ): Int = when {
 
-    (kingX != rookX && kingY != rookY) && (abs(bishopX - kingX) != abs(bishopY-kingY)) -> 0
-    (kingX == rookX || kingY == rookY) && (abs(bishopX - kingX) == abs(bishopY-kingY)) -> 3
-    abs(bishopX - kingX) == abs(bishopY-kingY) -> 2
+    (kingX != rookX && kingY != rookY) && (abs(bishopX - kingX) != abs(bishopY - kingY)) -> 0
+    (kingX == rookX || kingY == rookY) && (abs(bishopX - kingX) == abs(bishopY - kingY)) -> 3
+    abs(bishopX - kingX) == abs(bishopY - kingY) -> 2
     else -> 1
 }
 
@@ -151,8 +150,8 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val max = maxOf(a,b,c)
-    val min = minOf(a,b,c)
+    val max = maxOf(a, b, c)
+    val min = minOf(a, b, c)
     val sr = a + b + c - max - min
     return when {
         a + b < c || a + c < b || b + c < a -> -1
@@ -161,7 +160,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         else -> 0
     }
 }
-
 
 
 /**
