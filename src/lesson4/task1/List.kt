@@ -439,7 +439,7 @@ fun russian(n: Int): String {
     if (digitNumber == 6) {
         digit = x / 100000
         res += hundredsOfThousands(digit)
-        if ((x / 1000) % 10 == 0) {
+        if (((x / 1000) % 10 == 0) && ((x / 10000) % 10 == 0)) {
             res += "тысяч "
         }
         x = x % 100000
@@ -450,7 +450,7 @@ fun russian(n: Int): String {
         digit = x / 10000
         if (digit != 1) {
             res += tensOfThousands(digit)
-            if ((x / 1000) % 10 == 0 && (x / 10000)%10 != 0) {
+            if (((x / 1000) % 10 == 0)) {
                 res += "тысяч "
             }
         }
@@ -465,9 +465,7 @@ fun russian(n: Int): String {
         } else {
             digit = x / 1000
             res += thousands(digit)
-            if ((x / 1000) % 10 == 0) {
-                res += "тысяч "
-            }
+
         }
         x = x % 1000
         digitNumber = digitNumber(x)
