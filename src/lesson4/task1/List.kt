@@ -442,7 +442,7 @@ fun russian(n: Int): String {
         if ((x / 1000) % 10 == 0) {
             res += "тысяч "
         }
-        x = x % 10000
+        x = x % 100000
         digitNumber = digitNumber(x)
     }
 
