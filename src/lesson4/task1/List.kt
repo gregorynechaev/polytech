@@ -474,7 +474,13 @@ fun russian(n: Int): String {
     if (digitNumber == 3) {
         digit = x / 100
         res += hundredsOfThousands(digit)
-        x = x % 100
+        if ((x / 10) % 10 == 0) {
+            digit = 0
+            x = x % 100
+        } else {
+            x = x % 100
+
+        }
         digitNumber = digitNumber(x)
     }
 
