@@ -140,7 +140,6 @@ fun mean(list: List<Double>): Double =
     }
 
 
-
 /**
  * Средняя (3 балла)
  *
@@ -453,8 +452,15 @@ fun russian(n: Int): String {
                 res += "тысяч "
             }
         }
-        x = x % 10000
-        digitNumber = digitNumber(x)
+        if ((x / 1000) % 10 == 0) {
+            digitNumber = 4
+            x = x % 10000
+        } else {
+            x = x % 10000
+            digitNumber = digitNumber(x)
+        }
+
+
     }
 
     if (digitNumber == 4) {
