@@ -133,13 +133,13 @@ fun abs(v: List<Double>): Double {
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    return when {
-        list.size == 0 -> 0.0
+fun mean(list: List<Double>): Double =
+    when {
+        list.isEmpty() -> 0.0
         else -> list.sum() / list.size
     }
 
-}
+
 
 /**
  * Средняя (3 балла)
@@ -165,7 +165,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int {
-    var res = a.mapIndexed() { index, it -> it * b[index] }
+    val res = a.mapIndexed() { index, it -> it * b[index] }
     return res.sum()
 
 }
@@ -238,8 +238,7 @@ fun factorize(n: Int): List<Int> {
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
 fun factorizeToString(n: Int): String {
-    var res = ""
-    var list = factorize(n)
+    val list = factorize(n)
     return list.joinToString(separator = "*")
 }
 
@@ -253,17 +252,17 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     var x = n
     var digit = 0
-    var list = mutableListOf<Int>()
-    if (x == 0) {
+    val list = mutableListOf<Int>()
+    return if (x == 0) {
         list += 0
-        return list
+        list
     } else {
         while (x != 0) {
             digit = x % base
             x /= base
             list += digit
         }
-        return list.reversed()
+        list.reversed()
     }
 }
 
@@ -281,7 +280,7 @@ fun convert(n: Int, base: Int): List<Int> {
 
 fun convertToString(n: Int, base: Int): String {
     var res = ""
-    var list = convert(n, base)
+    val list = convert(n, base)
     for (i in list) {
         if (i <= 9) {
             res += i.toString()
