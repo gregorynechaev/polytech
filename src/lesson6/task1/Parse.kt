@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+import java.lang.IndexOutOfBoundsException
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +77,43 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val months = listOf<String>(
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
+        "декабря",
+    )
+    try {
+        val date = str.split(" ")
+        if (date[1] in months) {
+            val month = months.indexOf(date[1]) + 1
+            return if (date[0].toInt() <= daysInMonth(month, date[2].toInt())) {
+                String.format("%02d.%02d.%04d", date[0].toInt(), month, date[2].toInt())
+
+            } else {
+                ""
+            }
+
+        } else {
+            return ""
+        }
+
+    } catch (e: NumberFormatException) {
+        return ""
+    } catch (e: IndexOutOfBoundsException) {
+        return ""
+    }
+
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +125,38 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val months = listOf<String>(
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
+        "декабря",
+    )
+    try {
+        val date = digital.split(".")
+        val month = months[date[1].toInt() - 1]
+        val day = date[0].toInt()
+        val year = date[2].toInt()
+        return if (date[0].toInt() <= daysInMonth(date[1].toInt(), date[2].toInt()) && date.size == 3) {
+            "$day $month $year"
+        } else {
+            ""
+        }
+    } catch (e: NumberFormatException) {
+        return ""
+    } catch (e: ArrayIndexOutOfBoundsException) {
+        return ""
+    }
+
+}
 
 /**
  * Средняя (4 балла)
@@ -114,7 +184,26 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val result = jumps.split(" ")
+    var max = Int.MIN_VALUE
+    try {
+        for (i in result) {
+            if (i != "-" && i != "%") {
+                max = maxOf(max, i.toInt())
+
+            }
+        }
+        return if (max == Int.MIN_VALUE) {
+            -1
+        } else max
+
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+
+
+}
 
 /**
  * Сложная (6 баллов)
@@ -139,6 +228,32 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int = TODO()
+//{
+//    val res = expression.split(" ")
+//
+//    var digit = 0
+//    var plus = true
+//    var sign = true
+//    var sum = 0
+//    for (i in res) {
+//        if (i == "+" && !sign) {
+//            plus = true
+//            sign = true
+//        } else if (i == "-" && !sign) {
+//            plus = false
+//            sign = true
+//        } else if (sign && i != "+" && i != "-") {
+//            digit = i.toInt()
+//            if (plus) {
+//                sum += digit
+//            } else sum -= digit
+//            sign = false
+//        } else {
+//            throw IllegalArgumentException()
+//        }
+//    }
+//    return sum
+//}
 
 /**
  * Сложная (6 баллов)

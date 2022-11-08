@@ -149,7 +149,7 @@ fun mean(list: List<Double>): Double =
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    var sr = mean(list)
+    val sr = mean(list)
     for (i in 0..list.size - 1) {
         list[i] -= sr
     }
@@ -178,7 +178,7 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int {
-    var res = p.mapIndexed { index, it -> it * x.toDouble().pow(index) }
+    val res = p.mapIndexed { index, it -> it * x.toDouble().pow(index) }
     return res.sum().toInt()
 
 }
@@ -195,7 +195,7 @@ fun polynom(p: List<Int>, x: Int): Int {
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
 
-    if (list.size != 0) {
+    if (list.isNotEmpty()) {
         var c = list[0]
         for (i in 1 until list.size) {
             c += list[i]
@@ -216,7 +216,7 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
     for (i in 2..n) {
         if (n % i == 0 && isPrime(i)) {
             var x = n
@@ -304,8 +304,8 @@ fun convertToString(n: Int, base: Int): String {
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    var list = digits.reversed()
-    var res = list.mapIndexed() { index, it -> it * base.toDouble().pow(index) }
+    val list = digits.reversed()
+    val res = list.mapIndexed() { index, it -> it * base.toDouble().pow(index) }
     return res.sum().toInt()
 }
 
@@ -333,8 +333,8 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var roman = listOf<String>("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
-    var arabic = listOf<Int>(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val roman = listOf<String>("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    val arabic = listOf<Int>(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var res = ""
     var x = n
     for (i in 0 until roman.size) {
