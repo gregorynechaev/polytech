@@ -217,14 +217,15 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  */
 fun factorize(n: Int): List<Int> {
     val list = mutableListOf<Int>()
-    for (i in 2..n) {
-        if (n % i == 0 && isPrime(i)) {
-            var x = n
-            while (x % i == 0) {
-                x /= i
-                list += i
-            }
+    var i = 2
+    var x = n
+    while (x > 1) {
+        if (x % i == 0) {
+            list.add(i)
+            x /= i
+            i--
         }
+        i++
     }
     return list
 }
@@ -279,21 +280,19 @@ fun convert(n: Int, base: Int): List<Int> {
 
 fun convertToString(n: Int, base: Int): String {
     var res = ""
+    val result = mutableListOf<Any>()
     val list = convert(n, base)
     for (i in list) {
         if (i <= 9) {
-            res += i.toString()
+            result.add(i.toString())
         } else {
             var digit = 'a'
-            var count = 10
-            while (i != count) {
-                count++
-                digit++
-            }
-            res += digit.toString()
+            val count = 10
+            digit += i - count
+            result.add(digit.toString())
         }
     }
-    return res
+    return result.joinToString(separator = "")
 }
 
 /**

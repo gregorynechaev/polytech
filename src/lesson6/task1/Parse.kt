@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.Exception
 import java.lang.IndexOutOfBoundsException
 
 // Урок 6: разбор строк, исключения
@@ -227,31 +228,37 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int = TODO()
-//{
 //    val res = expression.split(" ")
-//
-//    var digit = 0
-//    var plus = true
-//    var sign = true
-//    var sum = 0
-//    for (i in res) {
-//        if (i == "+" && !sign) {
-//            plus = true
-//            sign = true
-//        } else if (i == "-" && !sign) {
-//            plus = false
-//            sign = true
-//        } else if (sign && i != "+" && i != "-") {
-//            digit = i.toInt()
-//            if (plus) {
-//                sum += digit
-//            } else sum -= digit
-//            sign = false
-//        } else {
-//            throw IllegalArgumentException()
-//        }
+//    if (res[0].toIntOrNull() == null){
+//        throw IllegalArgumentException()
 //    }
-//    return sum
+//    else{
+//        var pastDigit = res[0].toInt()
+//        var presentDigit = 0
+//        var plus = true
+//        var sign = false
+//        for (i in 1 until res.size) {
+//            if (res[i] == "+" && !sign) {
+//                plus = true
+//                sign = true
+//            } else if (res[i] == "-" && !sign) {
+//                plus = false
+//                sign = true
+//            } else if (sign && res[i].toIntOrNull() != null) {
+//                presentDigit = res[i].toInt()
+//                if (plus) {
+//                    pastDigit += presentDigit
+//
+//                } else pastDigit -= presentDigit
+//                sign = false
+//
+//            } else {
+//                throw IllegalArgumentException()
+//            }
+//        }
+//        return pastDigit
+//    }
+//
 //}
 
 /**
@@ -263,7 +270,30 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val list = str.split(" ")
+    var pastWord = list[0]
+    var presentWord = ""
+    var length = list[0].length + 1
+    var index = 0
+    var flag = true
+    for (i in 1 until list.size) {
+        presentWord = list[i]
+
+        length += list[i].length
+        if (pastWord.lowercase() == presentWord.lowercase()) {
+            flag = false
+            return index
+        }
+        length++
+        index = length - list[i].length - 1
+        pastWord = presentWord
+    }
+    if (flag) {
+        return -1
+    } else return 1
+}
+
 
 /**
  * Сложная (6 баллов)
@@ -276,7 +306,38 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    val list = description.split(" ")
+    var product = true
+    var presentProduct = ""
+    var price = 0.0
+    var maxPrice = Double.MIN_VALUE
+    var maxPriceProduct = ""
+    var x = ""
+    try {
+        for (i in list) {
+            if (product) {
+                presentProduct = i
+                product = false
+            } else {
+                x = i
+                x = x.replace(";", "")
+                price = x.toDouble()
+                if (maxPrice < price) {
+                    maxPrice = price
+                    maxPriceProduct = presentProduct
+                }
+                product = true
+            }
+        }
+        return maxPriceProduct
+
+    }
+    catch(e: NumberFormatException){
+        return ""
+    }
+
+}
 
 /**
  * Сложная (6 баллов)
