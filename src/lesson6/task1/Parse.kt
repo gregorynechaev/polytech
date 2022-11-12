@@ -93,7 +93,7 @@ fun dateStrToDigit(str: String): String {
         "ноября",
         "декабря",
     )
-    if(Regex("""[0-9]+ [А-я]+ [0-9]+""").matches(str)){
+    if (Regex("""[0-9]+ [А-я]+ [0-9]+""").matches(str)) {
         val date = str.split(" ")
         if (date[1] in months) {
             val month = months.indexOf(date[1]) + 1
@@ -106,10 +106,7 @@ fun dateStrToDigit(str: String): String {
         } else {
             return ""
         }
-    }
-    else return ""
-
-
+    } else return ""
 
 
 }
@@ -139,24 +136,25 @@ fun dateDigitToStr(digital: String): String {
         "ноября",
         "декабря",
     )
-   if(Regex("""([0-9]{2}.){2}([0-9]){4}""").matches(digital)){
-       val date = digital.split(".")
+    if (Regex("""([0-9]+.){2}([0-9])+""").matches(digital)) {
+        val date = digital.split(".")
 
 
-       val day = date[0].toInt()
-       val year = date[2].toInt()
-       if (date[0].toInt() <= daysInMonth(date[1].toInt(), date[2].toInt()) && date.size == 3 && date[1].toInt()!=0 && date[0].toInt()!=0) {
-           val month = months[date[1].toInt() - 1]
-           return "$day $month $year"
-       }
-       else return ""
+        val day = date[0].toInt()
+        val year = date[2].toInt()
+        if (date[0].toInt() <= daysInMonth(
+                date[1].toInt(),
+                date[2].toInt()
+            ) && date.size == 3 && date[1].toInt() != 0 && date[0].toInt() != 0
+        ) {
+            val month = months[date[1].toInt() - 1]
+            return "$day $month $year"
+        } else return ""
 
 
-   }
-    else{
+    } else {
         return ""
-   }
-
+    }
 
 
 }
@@ -190,7 +188,7 @@ fun flattenPhoneNumber(phone: String): String = TODO()
 fun bestLongJump(jumps: String): Int {
     val result = jumps.split(" ")
     var max = Int.MIN_VALUE
-    if (Regex("""([0-9]*%*-* )*([0-9]*%*-*)""").matches(jumps)) {
+    if (Regex("""([0-9]*%*-* )*([0-9]*%*-*)""").matches(jumps) && jumps != "") {
         for (i in result) {
             if (i != "-" && i != "%") {
                 max = maxOf(max, i.toInt())
