@@ -273,33 +273,33 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double {
-    var flag = true
-    var res = 0.0
-    var count = 1
-    var i = x
-    var sin = x
-    var fact = 1
-    var newEl = 0.0
-    while (flag) {
-        newEl = i * i.pow(2.0) / (fact + 1) / (fact + 2)
-        if (count % 2 == 0) {
-            sin -= newEl
-        } else {
-            sin += newEl
-        }
-        fact += 2
-        i = i * i.pow(2.0)
-        count++
-        if (newEl < eps) {
-            res = sin
-            flag = false
-        }
+fun sin(x: Double, eps: Double): Double = TODO()
+//    var flag = true
+//    var res = 0.0
+//    var count = 1
+//    var i = x
+//    var sin = x
+//    var fact = 1
+//    var newEl = 0.0
+//    while (flag) {
+//        newEl = i * i.pow(2.0) / (fact + 1) / (fact + 2)
+//        if (count % 2 == 0) {
+//            sin -= newEl
+//        } else {
+//            sin += newEl
+//        }
+//        fact += 2
+//        i = i * i.pow(2.0)
+//        count++
+//        if (newEl < eps) {
+//            res = sin
+//            flag = false
+//        }
+//
+//    }
+//    return res
 
-    }
-    return res
-
-}
+    //}
 
 /**
  * Средняя (4 балла)

@@ -173,18 +173,19 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.intersect(b
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    var res = mutableMapOf<String, String>()
-    res = mapB.toMutableMap()
-    for ((key, value) in mapA) {
-        if (value != res[key]) {
-            if (!res[key].isNullOrEmpty()) {
-                res[key] = value + ", " + res[key]
-            } else res[key] = value
-        }
-    }
-    return res.toMap()
-}
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+//{
+//    var res = mutableMapOf<String, String>()
+//    res = mapB.toMutableMap()
+//    for ((key, value) in mapA) {
+//        if (value != res[key]) {
+//            if (!res[key].isNullOrEmpty()) {
+//                res[key] = value + ", " + res[key]
+//            } else res[key] = value
+//        }
+//    }
+//    return res.toMap()
+//}
 
 /**
  * Средняя (4 балла)
@@ -196,33 +197,33 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    var res = mutableMapOf<String, Double>()
-
-    var sum = 0.0
-    var count = 0
-    if (!stockPrices.isNullOrEmpty()) {
-        var s = stockPrices[0].first
-        for ((key, value) in stockPrices) {
-
-            if (key == s) {
-                sum += value
-                count++
-
-            } else {
-                res[s] = sum / count
-                sum = 0.0
-                count = 0
-                sum += value
-                count++
-            }
-            s = key
-        }
-        res[s] = sum / count
-    }
-
-    return res.toMap()
-}
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()//{
+//    var res = mutableMapOf<String, Double>()
+//
+//    var sum = 0.0
+//    var count = 0
+//    if (!stockPrices.isNullOrEmpty()) {
+//        var s = stockPrices[0].first
+//        for ((key, value) in stockPrices) {
+//
+//            if (key == s) {
+//                sum += value
+//                count++
+//
+//            } else {
+//                res[s] = sum / count
+//                sum = 0.0
+//                count = 0
+//                sum += value
+//                count++
+//            }
+//            s = key
+//        }
+//        res[s] = sum / count
+//    }
+//
+//    return res.toMap()
+//}
 
 /**
  * Средняя (4 балла)
@@ -239,21 +240,22 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var min = Double.MAX_VALUE
-    var name = ""
-    for ((key, value) in stuff) {
-        if (value.first == kind) {
-            if (value.second < min) {
-                name = key
-                min = value.second
-            }
-        }
-    }
-    return if (name == "") null
-    else name
-
-}
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+//{
+//    var min = Double.MAX_VALUE
+//    var name = ""
+//    for ((key, value) in stuff) {
+//        if (value.first == kind) {
+//            if (value.second < min) {
+//                name = key
+//                min = value.second
+//            }
+//        }
+//    }
+//    return if (name == "") null
+//    else name
+//
+//}
 
 /**
  * Средняя (3 балла)

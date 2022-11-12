@@ -93,7 +93,7 @@ fun dateStrToDigit(str: String): String {
         "ноября",
         "декабря",
     )
-    try {
+    if(Regex("""[0-9]+ [А-я]+ [0-9]+""").matches(str)){
         val date = str.split(" ")
         if (date[1] in months) {
             val month = months.indexOf(date[1]) + 1
@@ -106,12 +106,11 @@ fun dateStrToDigit(str: String): String {
         } else {
             return ""
         }
-
-    } catch (e: NumberFormatException) {
-        return ""
-    } catch (e: IndexOutOfBoundsException) {
-        return ""
     }
+    else return ""
+
+
+
 
 }
 
@@ -140,21 +139,25 @@ fun dateDigitToStr(digital: String): String {
         "ноября",
         "декабря",
     )
-    try {
-        val date = digital.split(".")
-        val month = months[date[1].toInt() - 1]
-        val day = date[0].toInt()
-        val year = date[2].toInt()
-        return if (date[0].toInt() <= daysInMonth(date[1].toInt(), date[2].toInt()) && date.size == 3) {
-            "$day $month $year"
-        } else {
-            ""
-        }
-    } catch (e: NumberFormatException) {
+   if(Regex("""([0-9]{2}.){2}([0-9]){4}""").matches(digital)){
+       val date = digital.split(".")
+
+
+       val day = date[0].toInt()
+       val year = date[2].toInt()
+       if (date[0].toInt() <= daysInMonth(date[1].toInt(), date[2].toInt()) && date.size == 3 && date[1].toInt()!=0 && date[0].toInt()!=0) {
+           val month = months[date[1].toInt() - 1]
+           return "$day $month $year"
+       }
+       else return ""
+
+
+   }
+    else{
         return ""
-    } catch (e: ArrayIndexOutOfBoundsException) {
-        return ""
-    }
+   }
+
+
 
 }
 
@@ -187,18 +190,17 @@ fun flattenPhoneNumber(phone: String): String = TODO()
 fun bestLongJump(jumps: String): Int {
     val result = jumps.split(" ")
     var max = Int.MIN_VALUE
-    try {
+    if (Regex("""([0-9]*%*-* )*([0-9]*%*-*)""").matches(jumps)) {
         for (i in result) {
             if (i != "-" && i != "%") {
                 max = maxOf(max, i.toInt())
-
             }
         }
         return if (max == Int.MIN_VALUE) {
             -1
         } else max
 
-    } catch (e: NumberFormatException) {
+    } else {
         return -1
     }
 
@@ -227,39 +229,37 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
-//    val res = expression.split(" ")
-//    if (res[0].toIntOrNull() == null){
-//        throw IllegalArgumentException()
-//    }
-//    else{
-//        var pastDigit = res[0].toInt()
-//        var presentDigit = 0
-//        var plus = true
-//        var sign = false
-//        for (i in 1 until res.size) {
-//            if (res[i] == "+" && !sign) {
-//                plus = true
-//                sign = true
-//            } else if (res[i] == "-" && !sign) {
-//                plus = false
-//                sign = true
-//            } else if (sign && res[i].toIntOrNull() != null) {
-//                presentDigit = res[i].toInt()
-//                if (plus) {
-//                    pastDigit += presentDigit
-//
-//                } else pastDigit -= presentDigit
-//                sign = false
-//
-//            } else {
-//                throw IllegalArgumentException()
-//            }
-//        }
-//        return pastDigit
-//    }
-//
-//}
+fun plusMinus(expression: String): Int {
+
+    if (Regex("""([0-9]+ [+-] )*[0-9]+""").matches(expression)) {
+        val res = expression.split(" ")
+        var pastDigit = res[0].toInt()
+        var presentDigit = 0
+        var plus = true
+        var sign = false
+        for (i in 1 until res.size) {
+            if (res[i] == "+" && !sign) {
+                plus = true
+                sign = true
+            } else if (res[i] == "-" && !sign) {
+                plus = false
+                sign = true
+            } else {
+                presentDigit = res[i].toInt()
+                if (plus) {
+                    pastDigit += presentDigit
+
+                } else pastDigit -= presentDigit
+                sign = false
+
+            }
+        }
+        return pastDigit
+    } else {
+        throw IllegalArgumentException()
+    }
+}
+
 
 /**
  * Сложная (6 баллов)
@@ -279,7 +279,6 @@ fun firstDuplicateIndex(str: String): Int {
     var flag = true
     for (i in 1 until list.size) {
         presentWord = list[i]
-
         length += list[i].length
         if (pastWord.lowercase() == presentWord.lowercase()) {
             flag = false
@@ -306,38 +305,31 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String {
-    val list = description.split(" ")
-    var product = true
-    var presentProduct = ""
-    var price = 0.0
-    var maxPrice = Double.MIN_VALUE
-    var maxPriceProduct = ""
-    var x = ""
-    try {
-        for (i in list) {
-            if (product) {
-                presentProduct = i
-                product = false
-            } else {
-                x = i
-                x = x.replace(";", "")
-                price = x.toDouble()
-                if (maxPrice < price) {
-                    maxPrice = price
-                    maxPriceProduct = presentProduct
-                }
-                product = true
-            }
-        }
-        return maxPriceProduct
-
-    }
-    catch(e: NumberFormatException){
-        return ""
-    }
-
-}
+fun mostExpensive(description: String): String = TODO()
+//    var presentProduct = ""
+//    var price = 0.0
+//    var maxPrice = Double.MIN_VALUE
+//    var prod = listOf<String>()
+//    var maxPriceProduct = ""
+//    var x = ""
+//    if (Regex("""([A-я]+ [0-9]+.*[0-9]*; )*([A-я]+ [0-9]+.?[0-9]*)""").matches(description)) {
+//        val list = description.split("; ")
+//        for (i in list) {
+//            prod = i.split(" ")
+//            presentProduct = prod[0]
+//            price = prod[1].toDouble()
+//            if (maxPrice <= price) {
+//                    maxPrice = price
+//                    maxPriceProduct = presentProduct
+//            }
+//        }
+//        return maxPriceProduct
+//    } else {
+//        return ""
+//    }
+//
+//
+//}
 
 /**
  * Сложная (6 баллов)
