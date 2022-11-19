@@ -279,7 +279,6 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 
 fun convertToString(n: Int, base: Int): String {
-    var res = ""
     val result = mutableListOf<Any>()
     val list = convert(n, base)
     for (i in list) {
@@ -353,8 +352,8 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun hundredsOfThousands(n: Int): String {
-    return when (n) {
+fun hundredsOfThousands(n: Int): String =
+    when (n) {
         0 -> ""
         1 -> "сто "
         2 -> "двести "
@@ -366,10 +365,10 @@ fun hundredsOfThousands(n: Int): String {
         8 -> "восемьсот "
         else -> "девятьсот "
     }
-}
 
-fun tensOfThousands(n: Int): String {
-    return when (n) {
+
+fun tensOfThousands(n: Int): String =
+    when (n) {
         0 -> ""
         1 -> "десять "
         2 -> "двадцать "
@@ -381,10 +380,10 @@ fun tensOfThousands(n: Int): String {
         8 -> "восемьдесят "
         else -> "девяносто "
     }
-}
 
-fun thousands(n: Int): String {
-    return when (n) {
+
+fun thousands(n: Int): String =
+    when (n) {
         0 -> ""
         1 -> "одна тысяча "
         2 -> "две тысячи "
@@ -396,10 +395,10 @@ fun thousands(n: Int): String {
         8 -> "восемь тысяч "
         else -> "девять тысяч "
     }
-}
 
-fun units(n: Int): String {
-    return when (n) {
+
+fun units(n: Int): String =
+    when (n) {
         0 -> ""
         1 -> "один"
         2 -> "два"
@@ -411,10 +410,10 @@ fun units(n: Int): String {
         8 -> "восемь"
         else -> "девять"
     }
-}
 
-fun tens(n: Int): String {
-    return when (n) {
+
+fun tens(n: Int): String =
+    when (n) {
         0 -> "десять "
         1 -> "одиннадцать "
         2 -> "двенадцать "
@@ -426,7 +425,7 @@ fun tens(n: Int): String {
         8 -> "восемнадцать "
         else -> "девятнадцать "
     }
-}
+
 
 fun russian(n: Int): String {
     var res = ""

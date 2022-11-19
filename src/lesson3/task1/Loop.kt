@@ -273,33 +273,29 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
-//    var flag = true
-//    var res = 0.0
-//    var count = 1
-//    var i = x
-//    var sin = x
-//    var fact = 1
-//    var newEl = 0.0
-//    while (flag) {
-//        newEl = i * i.pow(2.0) / (fact + 1) / (fact + 2)
-//        if (count % 2 == 0) {
-//            sin -= newEl
-//        } else {
-//            sin += newEl
-//        }
-//        fact += 2
-//        i = i * i.pow(2.0)
-//        count++
-//        if (newEl < eps) {
-//            res = sin
-//            flag = false
-//        }
-//
-//    }
-//    return res
+fun sin(x: Double, eps: Double): Double {
+    var flag = true
+    var count = 0
+    var sin = x % (2 * PI)
+    val arg = sin
+    var i = 3
+    var newEl = arg.pow(i) / factorial(i)
+    while (flag) {
+        if (count % 2 == 0) {
+            sin -= newEl
+        } else {
+            sin += newEl
+        }
+        i += 2
+        count++
+        newEl = arg.pow(i) / factorial(i)
+        if (abs(newEl) < abs(eps)) {
+            flag = false
+        }
+    }
+    return sin
 
-    //}
+}
 
 /**
  * Средняя (4 балла)
@@ -310,7 +306,28 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var flag = true
+    var count = 0
+    val arg = x % (2 * PI)
+    var cos = 1.0
+    var i = 2
+    var newEl = arg.pow(i) / factorial(i)
+    while (flag) {
+        if (count % 2 == 0) {
+            cos -= newEl
+        } else {
+            cos += newEl
+        }
+        i += 2
+        count++
+        newEl = arg.pow(i) / factorial(i)
+        if (abs(newEl) < abs(eps)) {
+            flag = false
+        }
+    }
+    return cos
+}
 
 /**
  * Сложная (4 балла)
