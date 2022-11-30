@@ -89,14 +89,17 @@ fun deleteMarked(inputName: String, outputName: String) {
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
 //{
 //    val res = mutableMapOf<String, Int>()
-//    for (line in File(inputName).readLines()) {
-//        for (i in substrings) {
-//            if (i in line) {
-//                if (res.containsKey(i)) {
-//                    res[i] = res.getValue(i) + 1
-//                } else res[i] = 0
-//            }
+//    var replaced = ""
+//    var count = 0
+//    var s = ""
+//    for (i in substrings) {
+//        count = 0
+//        for (line in File(inputName).readLines()) {
+//            s = line.lowercase()
+//            replaced = s.replace(i.lowercase(), "`")
+//            count += replaced.count { it == '`' }
 //        }
+//        res[i] = count
 //    }
 //    return res.toMap()
 //}
@@ -118,6 +121,27 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
 fun sibilants(inputName: String, outputName: String) {
     TODO()
 }
+//{
+//    val writer = File(outputName).bufferedWriter()
+//    var previous = ' '
+//    for (line in File(inputName).readLines()) {
+//        for (i in line) {
+//            if (previous == 'Ж' || previous == 'Ч' || previous == 'Ш' || previous == 'Щ') {
+//                when (i) {
+//                    'Ы' -> writer.write("И")
+//                    'Я' -> writer.write("А")
+//                    'Ю' -> writer.write("У")
+//                    else -> writer.write(i.toString())
+//                }
+//            } else writer.write(i.toString())
+//
+//            previous = i
+//        }
+//        writer.newLine()
+//
+//    }
+//    writer.close()
+//}
 
 /**
  * Средняя (15 баллов)

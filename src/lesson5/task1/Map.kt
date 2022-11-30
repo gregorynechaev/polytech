@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import java.lang.IllegalArgumentException
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -282,7 +284,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.toSet().inters
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    var res = mutableMapOf<String, Int>()
+    val res = mutableMapOf<String, Int>()
     for (i in 0..list.size - 1) {
         if (res.containsKey(list[i])) {
             res[list[i]] = res.getValue(list[i]) + 1
@@ -304,11 +306,12 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-    for (i in 0..words.size - 1) {
-        for (j in i + 1..words.size - 1) {
-            val first = words[i]
-            val sec = words[j]
-            if (first.toSet().intersect(sec.toSet()) == sec.toSet() && first.length == sec.length) {
+    val setWords = words.map { it.toSet() }
+    for (i in 0..setWords.size - 1) {
+        for (j in i + 1..setWords.size - 1) {
+            val first = setWords[i]
+            val sec = setWords[j]
+            if (first.intersect(sec) == sec && first.size == sec.size) {
                 return true
             }
         }
@@ -404,3 +407,5 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *   ) -> emptySet()
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+
+

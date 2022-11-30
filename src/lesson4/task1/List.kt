@@ -279,7 +279,7 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 
 fun convertToString(n: Int, base: Int): String {
-    val result = mutableListOf<Any>()
+    val result = mutableListOf<String>()
     val list = convert(n, base)
     for (i in list) {
         if (i <= 9) {
