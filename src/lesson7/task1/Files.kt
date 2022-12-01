@@ -133,6 +133,7 @@ fun sibilants(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     var previous = ' '
     for (line in File(inputName).readLines()) {
+        previous = ' '
         for (i in line) {
             if (previous == 'ж' || previous == 'ч' || previous == 'ш' || previous == 'щ') {
                 if (i.lowercaseChar() == i) {
@@ -279,7 +280,11 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
                     if (a.lowercaseChar() == key.lowercaseChar()) {
                         if (a.uppercaseChar() == a && Regex("""[A-я]+""").matches(a.toString())) {
                             writer.write(value[0].uppercase())
-                            writer.write(value[1].lowercase())
+                            for(i in 1 until value.length)
+                            {
+                                writer.write(value[i].lowercase())
+                            }
+
                         } else writer.write(value.lowercase())
                     }
                 }
