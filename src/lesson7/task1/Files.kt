@@ -280,16 +280,17 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
                     if (a.lowercaseChar() == key.lowercaseChar()) {
                         if (Regex("""([А-Я A-Z])[A-я]*""").matches(a.toString())) {
                             writer.write(value[0].uppercase())
-                            for(i in 1 until value.length)
-                            {
+                            for (i in 1 until value.length) {
                                 writer.write(value[i].lowercase())
                             }
-
-                        } else writer.write(value.lowercase())
+                        } else {
+                            if (value == "") {
+                                writer.write("")
+                            } else writer.write(value.lowercase())
+                        }
                     }
                 }
             } else writer.write(a.toString())
-
         }
         writer.newLine()
     }
