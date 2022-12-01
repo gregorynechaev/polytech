@@ -92,15 +92,26 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
 //    var replaced = ""
 //    var count = 0
 //    var s = ""
-//    for (i in substrings) {
-//        count = 0
+//    for (word in substrings) {
 //        for (line in File(inputName).readLines()) {
-//            s = line.lowercase()
-//            replaced = s.replace(i.lowercase(), "`")
-//            count += replaced.count { it == '`' }
+//            for (a in 0 until line.length) {
+//                s = ""
+//                for (b in a until line.length) {
+//                    s += line[b]
+//                    if (s.lowercase() == word.lowercase()) {
+//                        if (res.containsKey(s)) {
+//                            res[s] = res.getValue(s) + 1
+//                        } else res[s] = 1
+//
+//                    }
+//
+//
+//                }
+//
+//            }
 //        }
-//        res[i] = count
 //    }
+//
 //    return res.toMap()
 //}
 
@@ -119,29 +130,36 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var previous = ' '
+    for (line in File(inputName).readLines()) {
+        for (i in line) {
+            if (previous == 'ж' || previous == 'ч' || previous == 'ш' || previous == 'щ') {
+                if (i.lowercaseChar() == i) {
+                    when (i) {
+                        'ы' -> writer.write("и")
+                        'я' -> writer.write("а")
+                        'ю' -> writer.write("у")
+                        else -> writer.write(i.toString().lowercase())
+                    }
+                } else {
+                    when (i) {
+                        'Ы' -> writer.write("И")
+                        'Я' -> writer.write("А")
+                        'Ю' -> writer.write("У")
+                        else -> writer.write(i.toString())
+                    }
+                }
+
+            } else writer.write(i.toString())
+
+            previous = i.lowercaseChar()
+        }
+        writer.newLine()
+
+    }
+    writer.close()
 }
-//{
-//    val writer = File(outputName).bufferedWriter()
-//    var previous = ' '
-//    for (line in File(inputName).readLines()) {
-//        for (i in line) {
-//            if (previous == 'Ж' || previous == 'Ч' || previous == 'Ш' || previous == 'Щ') {
-//                when (i) {
-//                    'Ы' -> writer.write("И")
-//                    'Я' -> writer.write("А")
-//                    'Ю' -> writer.write("У")
-//                    else -> writer.write(i.toString())
-//                }
-//            } else writer.write(i.toString())
-//
-//            previous = i
-//        }
-//        writer.newLine()
-//
-//    }
-//    writer.close()
-//}
 
 /**
  * Средняя (15 баллов)
@@ -253,7 +271,24 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        for (a in line) {
+            if (dictionary.containsKey(a.lowercaseChar()) || dictionary.containsKey(a.uppercaseChar())) {
+                for ((key, value) in dictionary) {
+                    if (a.lowercaseChar() == key.lowercaseChar()) {
+                        if (a.uppercaseChar() == a && Regex("""[A-я]+""").matches(a.toString())) {
+                            writer.write(value[0].uppercase())
+                            writer.write(value[1].lowercase())
+                        } else writer.write(value.lowercase())
+                    }
+                }
+            } else writer.write(a.toString())
+
+        }
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
