@@ -278,7 +278,7 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
             if (dictionary.containsKey(a.lowercaseChar()) || dictionary.containsKey(a.uppercaseChar())) {
                 for ((key, value) in dictionary) {
                     if (a.lowercaseChar() == key.lowercaseChar()) {
-                        if (a.uppercaseChar() == a && Regex("""[A-я]+""").matches(a.toString())) {
+                        if (Regex("""([А-Я A-Z])[A-я]*""").matches(a.toString())) {
                             writer.write(value[0].uppercase())
                             for(i in 1 until value.length)
                             {
