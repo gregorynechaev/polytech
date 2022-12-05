@@ -382,7 +382,31 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var str = listOf<String>()
+    writer.write("<html>\n<body>\n<p>")
+    for (line in File(inputName).readLines()) {
+        if (line.isEmpty()) {
+            writer.write("</p>\n<p>")
+        } else {
+            str = line.split(" ")
+            for (i in str) {
+                var replaced = i
+                if (i.length > 2) {
+                    if (Regex("""(<[A-я]+>)*\*\*[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("**", "<b>")
+                    if (Regex("""(<[A-я]+>)*\*[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("*", "<i>")
+                    if (Regex("""(<[A-я]+>)*~~[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("~~", "<s>")
+                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*\*\*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("**", "</b>")
+                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*\*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("*", "</i>")
+                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*~~,*.*""").matches(replaced)) replaced = replaced.replaceFirst("~~", "</s>")
+                }
+                writer.write("$replaced ")
+            }
+        }
+        writer.newLine()
+    }
+    writer.write("</p>\n</body>\n</html>")
+    writer.close()
 }
 
 /**
