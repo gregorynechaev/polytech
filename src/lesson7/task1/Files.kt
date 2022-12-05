@@ -71,8 +71,6 @@ fun deleteMarked(inputName: String, outputName: String) {
             writer.write(line)
             writer.newLine()
         }
-
-
     }
     writer.close()
 }
@@ -86,34 +84,27 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
-//{
-//    val res = mutableMapOf<String, Int>()
-//    var replaced = ""
-//    var count = 0
-//    var s = ""
-//    for (word in substrings) {
-//        for (line in File(inputName).readLines()) {
-//            for (a in 0 until line.length) {
-//                s = ""
-//                for (b in a until line.length) {
-//                    s += line[b]
-//                    if (s.lowercase() == word.lowercase()) {
-//                        if (res.containsKey(s)) {
-//                            res[s] = res.getValue(s) + 1
-//                        } else res[s] = 1
-//
-//                    }
-//
-//
-//                }
-//
-//            }
-//        }
-//    }
-//
-//    return res.toMap()
-//}
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val res = mutableMapOf<String, Int>()
+    var s = ""
+    var str = ""
+    var count = 0
+    for (word in substrings) {
+        count = 0
+        for (line in File(inputName).readLines()) {
+            str = line.lowercase()
+            for (a in 0 until str.length) {
+                s = ""
+                for (b in a until str.length) {
+                    s += str[b]
+                    if (s == word.lowercase()) count++
+                }
+            }
+            res[word] = count
+        }
+    }
+    return res.toMap()
+}
 
 
 /**
@@ -235,6 +226,26 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  *
  */
 fun top20Words(inputName: String): Map<String, Int> = TODO()
+//{
+//    var res = mutableMapOf<String, Int>()
+//    var result = mutableMapOf<String, Int>()
+//    for (line in File(inputName).readLines()) {
+//        var words = line.split(" ")
+//        for (word in words) {
+//            var countMap = countSubstrings(inputName, listOf(word))
+//            res[word] = countMap[word] ?: 0
+//        }
+//    }
+//    var count = 0
+//    res.entries.sortedBy { it.value }
+//    for ((key, value) in res) {
+//        count++
+//        if (count < 20) {
+//            result[key] = value
+//        }
+//    }
+//    return result.toMap()
+//}
 
 /**
  * Средняя (14 баллов)
