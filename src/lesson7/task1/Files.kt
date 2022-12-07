@@ -2,6 +2,8 @@
 
 package lesson7.task1
 
+import ru.spbstu.wheels.NullableMonad.map
+import ru.spbstu.wheels.out
 import java.io.File
 
 // Урок 7: работа с файлами
@@ -383,31 +385,119 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    var str = listOf<String>()
     writer.write("<html>\n<body>\n<p>")
+    var c = 0
     for (line in File(inputName).readLines()) {
+        var iFlag = false
+        var bFlag = false
+        var sFlag = false
         if (line.isEmpty()) {
             writer.write("</p>\n<p>")
         } else {
-            str = line.split(" ")
-            for (i in str) {
-                var replaced = i
-                if (i.length > 2) {
-                    if (Regex("""(<[A-я]+>)*\*\*[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("**", "<b>")
-                    if (Regex("""(<[A-я]+>)*\*[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("*", "<i>")
-                    if (Regex("""(<[A-я]+>)*~~[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("~~", "<s>")
-                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*\*\*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("**", "</b>")
-                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*\*,*.*""").matches(replaced)) replaced = replaced.replaceFirst("*", "</i>")
-                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*~~,*.*""").matches(replaced)) replaced = replaced.replaceFirst("~~", "</s>")
+            var str = line.replace("**", "<b>")
+            str = str.replace("*", "<i>")
+            str = str.replace("~~", "<s>")
+            var replaced = ""
+            var shh = ""
+            var i = str.split("<i>")
+            if (i.size > 1) {
+                for (k in 0..i.size - 2) {
+                    replaced += i[k]
+                    if (iFlag) {
+                        replaced += ("</i>")
+                        iFlag = false
+                    } else {
+                        replaced += ("<i>")
+                        iFlag = true
+                    }
+                    c = k + 1
+
                 }
-                writer.write("$replaced ")
+            } else replaced = str
+
+            if (i.size > 1) {
+                replaced += i[c]
             }
+
+
+            var b = replaced.split("<b>")
+            if (b.size > 1) {
+                for (k in 0..b.size - 2) {
+                    shh += (b[k])
+                    if (bFlag) {
+                        shh += ("</b>")
+                        bFlag = false
+                    } else {
+                        shh += ("<b>")
+                        bFlag = true
+                    }
+                    c = k + 1
+                }
+            } else shh = replaced
+            if (b.size > 1) {
+                shh += b[c]
+            }
+
+            var s = shh.split("<s>")
+            if (s.size > 1) {
+                for (k in 0..s.size - 2) {
+                    writer.write(s[k])
+                    if (sFlag) {
+                        writer.write("</s>")
+                        sFlag = false
+                    } else {
+                        writer.write("<s>")
+                        sFlag = true
+                    }
+                    c = k + 1
+                }
+            } else {
+                writer.write(shh)
+            }
+            if (s.size > 1) {
+                writer.write(s[c])
+            }
+
         }
-        writer.newLine()
+
     }
+
     writer.write("</p>\n</body>\n</html>")
     writer.close()
 }
+//{
+//    val writer = File(outputName).bufferedWriter()
+//    var str = listOf<String>()
+//    writer.write("<html>\n<body>\n<p>")
+//    for (line in File(inputName).readLines()) {
+//        if (line.isEmpty()) {
+//            writer.write("</p>\n<p>")
+//        } else {
+//            str = line.split(" ")
+//            for (i in str) {
+//                var replaced = i
+//                if (i.length > 2) {
+//                    if (Regex("""(<[A-я]+>)*\*\*[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced =
+//                        replaced.replaceFirst("**", "<b>")
+//                    if (Regex("""(<[A-я]+>)*\*[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced =
+//                        replaced.replaceFirst("*", "<i>")
+//                    if (Regex("""(<[A-я]+>)*~~[A-я]*(</[A-я]+>)*,*.*""").matches(replaced)) replaced =
+//                        replaced.replaceFirst("~~", "<s>")
+//                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*\*\*,*.*""").matches(replaced)) replaced =
+//                        replaced.replaceFirst("**", "</b>")
+//                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*\*,*.*""").matches(replaced)) replaced =
+//                        replaced.replaceFirst("*", "</i>")
+//                    if (Regex("""(<[A-я]+>)*[A-я]*(</[A-я]+>)*~~,*.*""").matches(replaced)) replaced =
+//                        replaced.replaceFirst("~~", "</s>")
+//                }
+//                writer.write("$replaced ")
+//            }
+//        }
+//        writer.newLine()
+//    }
+//    writer.write("</p>\n</body>\n</html>")
+//    writer.close()
+//}
 
 /**
  * Сложная (23 балла)
@@ -575,4 +665,26 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
+//{
+//    val writer = File(outputName).bufferedWriter()
+//    val digits = mutableMapOf<Int, Int>()
+//    writer.write("$lhv | $rhv")
+//    writer.newLine()
+//    val div = lhv / rhv
+//    var x = div
+//    var count = div.toString().length
+//    while (x > 0) {
+//        digits[count] = x % 10
+//        x /= 10
+//        count--
+//    }
+//    var division = (digits[1] ?: 0) * rhv
+//    writer.write("-$division     $div")
+//    writer.newLine()
+//    var dash = division.toString().length + 1
+//    for(i in 1..dash){
+//        writer.write("-")
+//    }
+//    writer.newLine()
+//}
 
