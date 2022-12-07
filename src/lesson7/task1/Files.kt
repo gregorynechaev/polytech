@@ -387,13 +387,16 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     writer.write("<html>\n<body>\n<p>")
     var c = 0
+    var iFlag = false
+    var bFlag = false
+    var sFlag = false
+    var p = false
     for (line in File(inputName).readLines()) {
-        var iFlag = false
-        var bFlag = false
-        var sFlag = false
-        if (line.isEmpty()) {
+        if (line.isEmpty() && p) {
             writer.write("</p>\n<p>")
+            p = false
         } else {
+            p = true
             var str = line.replace("**", "<b>")
             str = str.replace("*", "<i>")
             str = str.replace("~~", "<s>")
