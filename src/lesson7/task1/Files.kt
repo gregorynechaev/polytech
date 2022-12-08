@@ -390,18 +390,30 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     var iFlag = false
     var bFlag = false
     var sFlag = false
+    var file = File(inputName).readLines()
+    var ccc = file.size - 1
+
+    for (j in file.size - 1..0) {
+        if (file[j].isEmpty()) {
+            ccc--
+
+        } else break
+    }
+
     var p = false
-    for (line in File(inputName).readLines()) {
-        if (line.isEmpty() && p) {
+    for (j in 0..ccc) {
+        if (file[j].isEmpty() && p) {
             writer.write("</p>\n<p>")
             p = false
         } else {
             p = true
-            var str = line.replace("**", "<b>")
+            var str = file[j].replace("**", "<b>")
             str = str.replace("*", "<i>")
             str = str.replace("~~", "<s>")
             var replaced = ""
             var shh = ""
+
+
             var i = str.split("<i>")
             if (i.size > 1) {
                 for (k in 0..i.size - 2) {
@@ -464,7 +476,6 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         }
 
     }
-
     writer.write("</p>\n</body>\n</html>")
     writer.close()
 }
