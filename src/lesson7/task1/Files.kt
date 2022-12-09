@@ -204,7 +204,50 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var maxLen = Int.MIN_VALUE
+    var spaces = 0
+    var sp = 0
+    var ost = 0
+    var lineee = ""
+    for (line in File(inputName).readLines()) {
+        lineee = line
+        val splited = line.split(" ")
+        val newSplit = splited.filter { it != "" }
+        val lineLength = newSplit.sumOf { it.length } + (newSplit.size - 1)
+        maxLen = maxOf(lineLength, maxLen)
+    }
+    for (line in File(inputName).readLines()) {
+        val splited = line.split(" ")
+        var newSplit = splited.filter { it != "" }
+        var count = newSplit.sumOf { it.length }
+        spaces = maxLen - count
+        if (line.length == maxLen) {
+            writer.write(line)
+        } else {
+            if (newSplit.size == 0) {
+                writer.write("")
+            } else if (newSplit.size == 1) {
+                writer.write(newSplit[0])
+            } else {
+                sp = spaces / (newSplit.size - 1)
+                ost = spaces % (newSplit.size - 1)
+
+                for (i in 0..newSplit.size - 2) {
+                    writer.write(newSplit[i])
+                    if (i + 1 <= ost) {
+                        writer.write(" ")
+                    }
+                    for (j in 1..sp) {
+                        writer.write(" ")
+                    }
+                }
+                writer.write(newSplit[newSplit.size - 1])
+            }
+        }
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
@@ -385,98 +428,95 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    writer.write("<html>\n<body>\n<p>")
+    writer.write("<html>\n<body>")
     var c = 0
     var iFlag = false
     var bFlag = false
     var sFlag = false
     var file = File(inputName).readLines()
-    var ccc = file.size - 1
+    var ccc = ""
 
-    for (j in file.size - 1..0) {
-        if (file[j].isEmpty()) {
-            ccc--
-
-        } else break
+    for (line in file) {
+        ccc += line + "\n"
     }
-
     var p = false
-    for (j in 0..ccc) {
-        if (file[j].isEmpty() && p) {
-            writer.write("</p>\n<p>")
-            p = false
-        } else {
-            p = true
-            var str = file[j].replace("**", "<b>")
-            str = str.replace("*", "<i>")
-            str = str.replace("~~", "<s>")
-            var replaced = ""
-            var shh = ""
+    while ("\n\n" in ccc) {
+        ccc = ccc.replace("\n\n\n", "\n\n")
+    }
+    var list = ccc.split("\n")
+    for (line in list) {
+        writer.write("<p>")
+        p = true
+        var str = line.replace("**", "<b>")
+        str = str.replace("*", "<i>")
+        str = str.replace("~~", "<s>")
+        var replaced = ""
+        var shh = ""
 
 
-            var i = str.split("<i>")
-            if (i.size > 1) {
-                for (k in 0..i.size - 2) {
-                    replaced += i[k]
-                    if (iFlag) {
-                        replaced += ("</i>")
-                        iFlag = false
-                    } else {
-                        replaced += ("<i>")
-                        iFlag = true
-                    }
-                    c = k + 1
-
+        var i = str.split("<i>")
+        if (i.size > 1) {
+            for (k in 0..i.size - 2) {
+                replaced += i[k]
+                if (iFlag) {
+                    replaced += ("</i>")
+                    iFlag = false
+                } else {
+                    replaced += ("<i>")
+                    iFlag = true
                 }
-            } else replaced = str
+                c = k + 1
 
-            if (i.size > 1) {
-                replaced += i[c]
             }
+        } else replaced = str
 
-
-            var b = replaced.split("<b>")
-            if (b.size > 1) {
-                for (k in 0..b.size - 2) {
-                    shh += (b[k])
-                    if (bFlag) {
-                        shh += ("</b>")
-                        bFlag = false
-                    } else {
-                        shh += ("<b>")
-                        bFlag = true
-                    }
-                    c = k + 1
-                }
-            } else shh = replaced
-            if (b.size > 1) {
-                shh += b[c]
-            }
-
-            var s = shh.split("<s>")
-            if (s.size > 1) {
-                for (k in 0..s.size - 2) {
-                    writer.write(s[k])
-                    if (sFlag) {
-                        writer.write("</s>")
-                        sFlag = false
-                    } else {
-                        writer.write("<s>")
-                        sFlag = true
-                    }
-                    c = k + 1
-                }
-            } else {
-                writer.write(shh)
-            }
-            if (s.size > 1) {
-                writer.write(s[c])
-            }
-
+        if (i.size > 1) {
+            replaced += i[c]
         }
 
+
+        var b = replaced.split("<b>")
+        if (b.size > 1) {
+            for (k in 0..b.size - 2) {
+                shh += (b[k])
+                if (bFlag) {
+                    shh += ("</b>")
+                    bFlag = false
+                } else {
+                    shh += ("<b>")
+                    bFlag = true
+                }
+                c = k + 1
+            }
+        } else shh = replaced
+        if (b.size > 1) {
+            shh += b[c]
+        }
+
+        var s = shh.split("<s>")
+        if (s.size > 1) {
+            for (k in 0..s.size - 2) {
+                writer.write(s[k])
+                if (sFlag) {
+                    writer.write("</s>")
+                    sFlag = false
+                } else {
+                    writer.write("<s>")
+                    sFlag = true
+                }
+                c = k + 1
+            }
+        } else {
+            writer.write(shh)
+        }
+        if (s.size > 1) {
+            writer.write(s[c])
+        }
+        writer.write("</p>")
+
+
     }
-    writer.write("</p>\n</body>\n</html>")
+    writer.write("</body>\n</html>")
     writer.close()
 }
 //{
