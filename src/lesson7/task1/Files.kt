@@ -469,6 +469,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
 
 
     ccc = ccc.replace("\n \n", "\n\n")
+    ccc = ccc.replace("\n\t\n", "\n\n")
 
     val list = ccc.split("\n\n")
     for (line in list) {
