@@ -333,18 +333,19 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
 fun roman(n: Int): String {
     val roman = listOf<String>("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
     val arabic = listOf<Int>(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    var res = ""
+    var i = 0
     var x = n
-    for (i in 0 until roman.size) {
-        while (x >= arabic[i]) {
-            res += roman[i]
-            x -= arabic[i]
+    val res = buildString {
+        while (x > 0) {
+            while (x >= arabic[i]) {
+                append(roman[i])
+                x -= arabic[i]
+            }
+            i++
         }
     }
     return res
 }
-
-
 /**
  * Очень сложная (7 баллов)
  *

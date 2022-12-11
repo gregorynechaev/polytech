@@ -2,9 +2,12 @@
 
 package lesson7.task1
 
+import lesson3.task1.digitNumber
 import ru.spbstu.wheels.NullableMonad.map
 import ru.spbstu.wheels.out
+import ru.spbstu.wheels.toMap
 import java.io.File
+import java.lang.StringBuilder
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -173,18 +176,21 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    File(outputName).bufferedWriter().use {
-        var maxLength = 0
-        File(inputName).forEachLine { line -> maxLength = maxOf(maxLength, line.trim().length) }
-        File(inputName).useLines { lineSequence ->
-            var spaces: String
-            for (line in lineSequence) {
-                spaces = " ".repeat((maxLength - line.trim().length) / 2)
-                it.write("$spaces${line.trim()}\n")
-            }
-        }
-    }
+    TODO()
 }
+//{
+//    File(outputName).bufferedWriter().use {
+//        var maxLength = 0
+//        File(inputName).forEachLine { line -> maxLength = maxOf(maxLength, line.trim().length) }
+//        File(inputName).useLines { lineSequence ->
+//            var spaces: String
+//            for (line in lineSequence) {
+//                spaces = " ".repeat((maxLength - line.trim().length) / 2)
+//                it.write("$spaces${line.trim()}\n")
+//            }
+//        }
+//    }
+//}
 
 /**
  * Сложная (20 баллов)
@@ -242,7 +248,6 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             } else {
                 sp = spaces / (newSplit.size - 1)
                 ost = spaces % (newSplit.size - 1)
-
                 for (i in 0..newSplit.size - 2) {
                     writer.write(newSplit[i])
                     if (i + 1 <= ost) {
@@ -450,10 +455,10 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         ccc += line + "\n"
     }
     var p = false
-    while ("\n\n" in ccc) {
+    while ("\n\n\n" in ccc) {
         ccc = ccc.replace("\n\n\n", "\n\n")
     }
-    var list = ccc.split("\n")
+    var list = ccc.split("\n\n")
     for (line in list) {
         writer.write("<p>")
         p = true
@@ -726,29 +731,48 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
  */
-fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
+fun ost(digitsRhv: Map<Int, Int>, minus: Int): Int {
+    val fs = digitNumber(minus)
+    var res = ""
+    for ((key, value) in digitsRhv) {
+        if (key <= fs) {
+            res += value.toString()
+        }
+    }
+    return (res.toInt() - minus)
+}
+
+fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String){
     TODO()
 }
 //{
+//    var x = lhv
 //    val writer = File(outputName).bufferedWriter()
-//    val digits = mutableMapOf<Int, Int>()
-//    writer.write("$lhv | $rhv")
-//    writer.newLine()
 //    val div = lhv / rhv
-//    var x = div
-//    var count = div.toString().length
+//    var y = div
+//    val digitsLhv = mutableMapOf<Int, Int>()
+//    val digitsDiv = mutableMapOf<Int, Int>()
+//    var c = digitNumber(x)
 //    while (x > 0) {
-//        digits[count] = x % 10
+//        digitsLhv[c] = x % 10
+//        c--
 //        x /= 10
-//        count--
 //    }
-//    var division = (digits[1] ?: 0) * rhv
-//    writer.write("-$division     $div")
-//    writer.newLine()
-//    var dash = division.toString().length + 1
-//    for(i in 1..dash){
-//        writer.write("-")
+//    c = digitNumber(y)
+//    while (y > 0) {
+//        digitsDiv[c] = y % 10
+//        c--
+//        y /= 10
 //    }
-//    writer.newLine()
+//    var newDigitsLhv = digitsLhv.entries.sortedBy { it.key }
+//    var newDigitsDiv = digitsDiv.entries.sortedBy { it.key }
+//    for ((key, value) in newDigitsDiv) {
+//        var minus = rhv * value
+//        var osttt = ost(newDigitsLhv.toMap(), minus)
+//
+//    }
+//
+//
 //}
+
 
