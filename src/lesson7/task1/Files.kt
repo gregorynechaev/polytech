@@ -228,8 +228,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     var lineee = ""
     for (line in File(inputName).readLines()) {
         lineee = line
-        while("  " in lineee){
-            lineee=lineee.replace("  ", " ")
+        while ("  " in lineee) {
+            lineee = lineee.replace("  ", " ")
         }
         val splited = line.split(" ")
         val newSplit = splited.filter { it != "" }
@@ -238,8 +238,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     }
     for (line in File(inputName).readLines()) {
         lineee = line
-        while("  " in lineee){
-            lineee=lineee.replace("  ", " ")
+        while ("  " in lineee) {
+            lineee = lineee.replace("  ", " ")
         }
         val splited = lineee.split(" ")
         var newSplit = splited.filter { it != "" }
@@ -473,14 +473,18 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     }
 
     val list = ccc.split("\n\n")
-    if(list.isNotEmpty()){
+    if (list.isNotEmpty()) {
         for (line in list) {
-            if(line == list[0]){
-                if(!line.isEmpty()){
+            if (line == list[0]) {
+                if (!line.isEmpty()) {
                     writer.write("<p>")
                 }
-            }
-            else writer.write("<p>")
+            } else if (line == list[list.size - 1]) {
+                var aaa = line.replace(" ", "")
+                if (aaa.isNotEmpty()) {
+                    writer.write("<p>")
+                }
+            } else writer.write("<p>")
 
             p = true
             var str = line.replace("**", "<b>")
@@ -549,8 +553,13 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
             if (s.size > 1) {
                 writer.write(s[c])
             }
-            if(line == list[0]){
-                if(!line.isEmpty()){
+            if (line == list[0]) {
+                if (!line.isEmpty()) {
+                    writer.write("</p>")
+                }
+            }else if (line == list[list.size - 1]) {
+                var aaa = line.replace(" ", "")
+                if (aaa.isNotEmpty()) {
                     writer.write("</p>")
                 }
             }
@@ -559,8 +568,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
 
         }
         writer.write("</body>\n</html>")
-    }
-    else writer.write("</body>\n</html>")
+    } else writer.write("</body>\n</html>")
 
     writer.close()
 }
@@ -772,7 +780,7 @@ fun ost(digitsRhv: Map<Int, Int>, minus: Int): Int {
     return (res.toInt() - minus)
 }
 
-fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String){
+fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
 //{
