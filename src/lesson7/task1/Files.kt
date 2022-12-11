@@ -467,7 +467,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         ccc = ccc.replace("\n\n\n", "\n\n")
     }
 
-    ccc = ccc.replace("\t", " ")
+
     ccc = ccc.replace("\n \n", "\n\n")
 
     val list = ccc.split("\n\n")
@@ -519,8 +519,9 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         if (b.size > 1) {
             shh += b[c]
         }
-
+        shh = shh.replace("\t", "")
         var s = shh.split("<s>")
+
         if (s.size > 1) {
             for (k in 0..s.size - 2) {
                 writer.write(s[k])
