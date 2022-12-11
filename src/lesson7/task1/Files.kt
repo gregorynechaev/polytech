@@ -568,7 +568,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
 
         }
         writer.write("</body>\n</html>")
-    } else writer.write("</body>\n</html>")
+    } else writer.write("<p>\n</p>\n</body>\n</html>")
 
     writer.close()
 }
