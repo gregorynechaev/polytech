@@ -458,6 +458,9 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     while ("\n\n\n" in ccc) {
         ccc = ccc.replace("\n\n\n", "\n\n")
     }
+    while ("\t" in ccc){
+        ccc = ccc.replace("\t", "")
+    }
     var list = ccc.split("\n\n")
     for (line in list) {
         writer.write("<p>")
