@@ -265,6 +265,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     writer.close()
 }
 
+
 /**
  * Средняя (14 баллов)
  *
@@ -458,10 +459,11 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     while ("\n\n\n" in ccc) {
         ccc = ccc.replace("\n\n\n", "\n\n")
     }
-    while ("\t" in ccc){
-        ccc = ccc.replace("\t", "")
-    }
-    var list = ccc.split("\n\n")
+
+    ccc = ccc.replace("\t", "")
+    ccc = ccc.replace("\n \n", "\n\n")
+
+    val list = ccc.split("\n\n")
     for (line in list) {
         writer.write("<p>")
         p = true
