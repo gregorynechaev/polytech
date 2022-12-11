@@ -228,13 +228,20 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     var lineee = ""
     for (line in File(inputName).readLines()) {
         lineee = line
+        while("  " in lineee){
+            lineee=lineee.replace("  ", " ")
+        }
         val splited = line.split(" ")
         val newSplit = splited.filter { it != "" }
         val lineLength = newSplit.sumOf { it.length } + (newSplit.size - 1)
         maxLen = maxOf(lineLength, maxLen)
     }
     for (line in File(inputName).readLines()) {
-        val splited = line.split(" ")
+        lineee = line
+        while("  " in lineee){
+            lineee=lineee.replace("  ", " ")
+        }
+        val splited = lineee.split(" ")
         var newSplit = splited.filter { it != "" }
         var count = newSplit.sumOf { it.length }
         spaces = maxLen - count
