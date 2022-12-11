@@ -473,7 +473,13 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
 
     val list = ccc.split("\n\n")
     for (line in list) {
-        writer.write("<p>")
+        if(line == list[0]){
+            if(!line.isEmpty()){
+                writer.write("<p>")
+            }
+        }
+        else writer.write("<p>")
+
         p = true
         var str = line.replace("**", "<b>")
         str = str.replace("*", "<i>")
@@ -541,7 +547,12 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         if (s.size > 1) {
             writer.write(s[c])
         }
-        writer.write("</p>")
+        if(line == list[0]){
+            if(!line.isEmpty()){
+                writer.write("</p>")
+            }
+        }
+        else writer.write("</p>")
 
 
     }
