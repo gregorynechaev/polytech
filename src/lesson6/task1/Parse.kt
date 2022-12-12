@@ -93,7 +93,9 @@ fun dateStrToDigit(str: String): String {
         "ноября",
         "декабря",
     )
-    if (Regex("""[0-9]+ [А-я]+ [0-9]+""").matches(str)) {
+    if (!Regex("""[0-9]+ [А-я]+ [0-9]+""").matches(str)) {
+        return ""
+    } else {
         val date = str.split(" ")
         if (date[1] in months) {
             val month = months.indexOf(date[1]) + 1
@@ -106,7 +108,7 @@ fun dateStrToDigit(str: String): String {
         } else {
             return ""
         }
-    } else return ""
+    }
 
 
 }
@@ -121,43 +123,43 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String {
-    val months = listOf<String>(
-        "января",
-        "февраля",
-        "марта",
-        "апреля",
-        "мая",
-        "июня",
-        "июля",
-        "августа",
-        "сентября",
-        "октября",
-        "ноября",
-        "декабря",
-    )
-    if (Regex("""([0-9]+.){2}([0-9])+""").matches(digital)) {
-        val date = digital.split(".")
-
-
-        val day = date[0].toInt()
-        val year = date[2].toInt()
-        if (date[0].toInt() <= daysInMonth(
-                date[1].toInt(),
-                date[2].toInt()
-            ) && date.size == 3 && date[1].toInt() != 0 && date[0].toInt() != 0
-        ) {
-            val month = months[date[1].toInt() - 1]
-            return "$day $month $year"
-        } else return ""
-
-
-    } else {
-        return ""
-    }
-
-
-}
+fun dateDigitToStr(digital: String): String = TODO()
+//{
+//    val months = listOf<String>(
+//        "января",
+//        "февраля",
+//        "марта",
+//        "апреля",
+//        "мая",
+//        "июня",
+//        "июля",
+//        "августа",
+//        "сентября",
+//        "октября",
+//        "ноября",
+//        "декабря",
+//    )
+//    if (!Regex("""([0-9]+.){2}([0-9])+""").matches(digital)) {
+//        return ""
+//    } else {
+//        val date = digital.split(".")
+//
+//        val day = date[0].toInt()
+//        val year = date[2].toInt()
+//        if (date[0].toInt() <= daysInMonth(
+//                date[1].toInt(),
+//                date[2].toInt()
+//            ) && date.size == 3 && date[1].toInt() != 0 && date[0].toInt() != 0
+//        ) {
+//            val month = months[date[1].toInt() - 1]
+//            return "$day $month $year"
+//        } else return ""
+//
+//
+//    }
+//
+//
+//}
 
 /**
  * Средняя (4 балла)
@@ -185,25 +187,26 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int {
-    val result = jumps.split(" ")
-    var max = Int.MIN_VALUE
-    if (Regex("""([0-9]*%*-* )*([0-9]*%*-*)""").matches(jumps) && jumps != "") {
-        for (i in result) {
-            if (i != "-" && i != "%") {
-                max = maxOf(max, i.toInt())
-            }
-        }
-        return if (max == Int.MIN_VALUE) {
-            -1
-        } else max
-
-    } else {
-        return -1
-    }
-
-
-}
+fun bestLongJump(jumps: String): Int= TODO()
+//{
+//    val result = jumps.split(" ")
+//    var max = Int.MIN_VALUE
+//    if (!Regex("""([0-9]*%*-* )*([0-9]*%*-*)""").matches(jumps) && jumps != "") {
+//        return -1
+//    } else {
+//        for (i in result) {
+//            if (i != "-" && i != "%") {
+//                max = maxOf(max, i.toInt())
+//            }
+//        }
+//        return if (max == Int.MIN_VALUE) {
+//            -1
+//        } else max
+//
+//    }
+//
+//
+//}
 
 /**
  * Сложная (6 баллов)

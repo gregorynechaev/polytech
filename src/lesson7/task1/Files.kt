@@ -94,10 +94,15 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     var s = ""
     var str = ""
     var count = 0
+    val list = mutableListOf<String>()
+    for (line in File(inputName).readLines()) {
+        str = line.lowercase()
+        list.add(str)
+    }
     for (word in substrings) {
         count = 0
-        for (line in File(inputName).readLines()) {
-            str = line.lowercase()
+        for (line in list) {
+            str = line
             for (a in 0 until str.length) {
                 s = ""
                 for (b in a until str.length) {
@@ -351,30 +356,32 @@ fun top20Words(inputName: String): Map<String, Int> = TODO()
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        for (a in line) {
-            if (dictionary.containsKey(a.lowercaseChar()) || dictionary.containsKey(a.uppercaseChar())) {
-                for ((key, value) in dictionary) {
-                    if (a.lowercaseChar() == key.lowercaseChar()) {
-                        if (Regex("""([А-Я A-Z])+[a-я]*""").matches(a.toString())) {
-                            writer.write(value[0].uppercase())
-                            for (i in 1 until value.length) {
-                                writer.write(value[i].lowercase())
-                            }
-                        } else {
-                            if (value == "") {
-                                writer.write("")
-                            } else writer.write(value.lowercase())
-                        }
-                    }
-                }
-            } else writer.write(a.toString())
-        }
-        writer.newLine()
-    }
-    writer.close()
+    TODO()
 }
+//    val writer = File(outputName).bufferedWriter()
+//    for (line in File(inputName).readLines()) {
+//        for (a in line) {
+//            if (dictionary.containsKey(a.lowercaseChar()) || dictionary.containsKey(a.uppercaseChar())) {
+//                for ((key, value) in dictionary) {
+//                    if (a.lowercaseChar() == key.lowercaseChar()) {
+//                        if (Regex("""([А-Я A-Z])+[a-я]*""").matches(a.toString())) {
+//                            writer.write(value[0].uppercase())
+//                            for (i in 1 until value.length) {
+//                                writer.write(value[i].lowercase())
+//                            }
+//                        } else {
+//                            if (value == "") {
+//                                writer.write("")
+//                            } else writer.write(value.lowercase())
+//                        }
+//                    }
+//                }
+//            } else writer.write(a.toString())
+//        }
+//        writer.newLine()
+//    }
+//    writer.close()
+//}
 
 /**
  * Средняя (12 баллов)
@@ -458,14 +465,10 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     var sFlag = false
     var file = File(inputName).readLines()
     var ccc = ""
-
     for (line in file) {
         ccc += line + "\n"
     }
     var p = false
-
-
-
     ccc = ccc.replace("\n \n", "\n\n")
     ccc = ccc.replace("\n\t\n", "\n\n")
     while ("\n\n\n" in ccc) {
@@ -485,15 +488,12 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                     writer.write("<p>")
                 }
             } else writer.write("<p>")
-
             p = true
             var str = line.replace("**", "<b>")
             str = str.replace("*", "<i>")
             str = str.replace("~~", "<s>")
             var replaced = ""
             var shh = ""
-
-
             var i = str.split("<i>")
             if (i.size > 1) {
                 for (k in 0..i.size - 2) {
@@ -506,15 +506,11 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                         iFlag = true
                     }
                     c = k + 1
-
                 }
             } else replaced = str
-
             if (i.size > 1) {
                 replaced += i[c]
             }
-
-
             var b = replaced.split("<b>")
             if (b.size > 1) {
                 for (k in 0..b.size - 2) {
@@ -534,7 +530,6 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
             }
             shh = shh.replace("\t", "")
             var s = shh.split("<s>")
-
             if (s.size > 1) {
                 for (k in 0..s.size - 2) {
                     writer.write(s[k])
@@ -557,19 +552,15 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                 if (!line.isEmpty()) {
                     writer.write("</p>")
                 }
-            }else if (line == list[list.size - 1]) {
+            } else if (line == list[list.size - 1]) {
                 var aaa = line.replace(" ", "")
                 if (aaa.isNotEmpty()) {
                     writer.write("</p>")
                 }
-            }
-            else writer.write("</p>")
-
-
+            } else writer.write("</p>")
         }
         writer.write("</body>\n</html>")
     } else writer.write("<p>\n</p>\n</body>\n</html>")
-
     writer.close()
 }
 //{
