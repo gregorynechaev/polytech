@@ -104,13 +104,10 @@ fun dateStrToDigit(str: String): String {
             } else {
                 ""
             }
-
         } else {
             return ""
         }
     }
-
-
 }
 
 /**

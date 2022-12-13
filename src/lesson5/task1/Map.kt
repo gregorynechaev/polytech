@@ -106,7 +106,6 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
         } else res[value]?.add(key)
     }
     return res
-
 }
 
 /**
@@ -122,7 +121,6 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for (itemA in a) {
         if (itemA.value != b[itemA.key]) return false
-
     }
     return true
 }
@@ -268,9 +266,8 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.lowercase().toSet().intersect(chars.map { it.lowercaseChar() }) == word.lowercase().toSet()
-
-
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+    word.lowercase().toSet().intersect(chars.map { it.lowercaseChar() }) == word.lowercase().toSet()
 /**
  * Средняя (4 балла)
  *
@@ -364,14 +361,11 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    var min = 0
-    var max = 0
-    for (i in 0..list.size - 1) {
-        if (number - list[i] in list && i != list.indexOf(number - list[i])) {
-            min = minOf(i, list.indexOf(number - list[i]))
-            max = maxOf(i, list.indexOf(number - list[i]))
-            return Pair(min, max)
-        }
+    val res = mutableMapOf<Int, Int>()
+    for (i in list.indices) {
+        if (res.containsKey(number - list[i])) {
+            return res[number - list[i]]!! to i
+        } else res[list[i]] = i
     }
     return Pair(-1, -1)
 }

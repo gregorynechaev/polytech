@@ -236,7 +236,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         while ("  " in lineee) {
             lineee = lineee.replace("  ", " ")
         }
-        val splited = line.split(" ")
+        val splited = lineee.split(" ")
         val newSplit = splited.filter { it != "" }
         val lineLength = newSplit.sumOf { it.length } + (newSplit.size - 1)
         maxLen = maxOf(lineLength, maxLen)
@@ -247,8 +247,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             lineee = lineee.replace("  ", " ")
         }
         val splited = lineee.split(" ")
-        var newSplit = splited.filter { it != "" }
-        var count = newSplit.sumOf { it.length }
+        val newSplit = splited.filter { it != "" }
+        val count = newSplit.sumOf { it.length }
         spaces = maxLen - count
         if (line.length == maxLen) {
             writer.write(line)
@@ -463,18 +463,16 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     var iFlag = false
     var bFlag = false
     var sFlag = false
-    var file = File(inputName).readLines()
+    val file = File(inputName).readLines()
     var ccc = ""
     for (line in file) {
         ccc += line + "\n"
     }
-    var p = false
     ccc = ccc.replace("\n \n", "\n\n")
     ccc = ccc.replace("\n\t\n", "\n\n")
     while ("\n\n\n" in ccc) {
         ccc = ccc.replace("\n\n\n", "\n\n")
     }
-
     val list = ccc.split("\n\n")
     if (list.isNotEmpty()) {
         for (line in list) {
@@ -483,18 +481,18 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                     writer.write("<p>")
                 }
             } else if (line == list[list.size - 1]) {
-                var aaa = line.replace(" ", "")
+                val aaa = line.replace(" ", "")
                 if (aaa.isNotEmpty()) {
                     writer.write("<p>")
                 }
             } else writer.write("<p>")
-            p = true
+
             var str = line.replace("**", "<b>")
             str = str.replace("*", "<i>")
             str = str.replace("~~", "<s>")
             var replaced = ""
-            var shh = ""
-            var i = str.split("<i>")
+            var str2 = ""
+            val i = str.split("<i>")
             if (i.size > 1) {
                 for (k in 0..i.size - 2) {
                     replaced += i[k]
@@ -511,25 +509,25 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
             if (i.size > 1) {
                 replaced += i[c]
             }
-            var b = replaced.split("<b>")
+            val b = replaced.split("<b>")
             if (b.size > 1) {
                 for (k in 0..b.size - 2) {
-                    shh += (b[k])
+                    str2 += (b[k])
                     if (bFlag) {
-                        shh += ("</b>")
+                        str2 += ("</b>")
                         bFlag = false
                     } else {
-                        shh += ("<b>")
+                        str2 += ("<b>")
                         bFlag = true
                     }
                     c = k + 1
                 }
-            } else shh = replaced
+            } else str2 = replaced
             if (b.size > 1) {
-                shh += b[c]
+                str2 += b[c]
             }
-            shh = shh.replace("\t", "")
-            var s = shh.split("<s>")
+            str2 = str2.replace("\t", "")
+            val s = str2.split("<s>")
             if (s.size > 1) {
                 for (k in 0..s.size - 2) {
                     writer.write(s[k])
@@ -543,17 +541,17 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                     c = k + 1
                 }
             } else {
-                writer.write(shh)
+                writer.write(str2)
             }
             if (s.size > 1) {
                 writer.write(s[c])
             }
             if (line == list[0]) {
-                if (!line.isEmpty()) {
+                if (line.isNotEmpty()) {
                     writer.write("</p>")
                 }
             } else if (line == list[list.size - 1]) {
-                var aaa = line.replace(" ", "")
+                val aaa = line.replace(" ", "")
                 if (aaa.isNotEmpty()) {
                     writer.write("</p>")
                 }
